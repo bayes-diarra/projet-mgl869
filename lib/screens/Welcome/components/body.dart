@@ -19,12 +19,12 @@ class Body extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Text(
-              "WELCOME TO SUMEDCHAIN",
+              "WELCOME TO [AppName]",
               style: TextStyle(fontWeight: FontWeight.bold),
             ),
             SizedBox(height: size.height * 0.05),
             SvgPicture.asset(
-              "assets/icons/chat.svg",
+              "assets/icons/logo.svg",
               height: size.height * 0.45,
             ),
             SizedBox(height: size.height * 0.05),
