@@ -23,7 +23,7 @@ void main() => runApp(MaterialApp(
   debugShowCheckedModeBanner: false,
   initialRoute: '/app',
   routes: {
-    '/': (context) => Loading(),
+    //'/': (context) => Loading(),
     '/app': (context) => MyApp(),
     '/signUp': (context) => SignUpScreen(),
     '/logIn': (context) => LoginScreen(),
