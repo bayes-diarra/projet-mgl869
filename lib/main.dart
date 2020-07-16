@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:scp/screens/Login/login_screen.dart';
+import 'package:scp/screens/Signup/signup_screen.dart';
+import 'package:scp/screens/scan/components/generate.dart';
+import 'package:scp/screens/scan/components/scan.dart';
 import 'Screens/common/accept_delivery.dart';
 import 'Screens/common/available_deliveries.dart';
 import 'Screens/common/get_product.dart';
@@ -19,9 +23,12 @@ void main() => runApp(MaterialApp(
   debugShowCheckedModeBanner: false,
   initialRoute: '/app',
   routes: {
-
     '/': (context) => Loading(),
     '/app': (context) => MyApp(),
+    '/signUp': (context) => SignUpScreen(),
+    '/logIn': (context) => LoginScreen(),
+    '/generate':(context) => GeneratePage(),
+    'scan':(context) => ScanPage(),
     //'/welcome_screen': (context) => WelcomeScreen(),
     '/homepage': (context) => HomePage(),
     '/patient': (context) => PatientHome(),
