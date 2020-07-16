@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:scp/utilities/constants.dart';
+import 'package:scp/utility/constants.dart';
 
 class LoginScreen extends StatefulWidget {
   @override
