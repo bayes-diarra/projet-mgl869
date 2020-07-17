@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:scp/Screens/Signup/signup_screen.dart';
+import 'package:scp/components/rounded_password_field.dart';
+import 'package:scp/screens/signup/signup_screen.dart';
 import 'package:scp/components/already_have_an_account_acheck.dart';
 import 'package:scp/components/rounded_button.dart';
 import 'package:scp/components/rounded_input_field.dart';
-import 'package:scp/components/rounded_password_field.dart';
 
 import 'background.dart';
 
