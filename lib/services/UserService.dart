@@ -1,5 +1,6 @@
 
 
+import 'package:flutter/cupertino.dart';
 import 'package:scp/model/User.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert'as convert;
@@ -12,6 +13,7 @@ class UserService{
   String message;
   String token;
   bool isRegister = false;
+  User user;
 
 
   Future<User> registerUser({String username, String password,String role}) async{
@@ -32,7 +34,7 @@ class UserService{
   }
 
 
-  Future<User> authenticateUser({String username,String password}) async {
+  Future<User> authenticateUser({@required String username, @required String password}) async {
     User user = await getUser(username: username, password: password);
 
     if(user !=null ){
@@ -66,7 +68,7 @@ class UserService{
     return users;
   }
 
-  Future<User> addUser({String username, String password,String role}) async{
+  Future<User> addUser({@required String username,@required String password, @required String role}) async{
 
     final response = await http.post(urlpost, body: {
       "username": username,
@@ -83,16 +85,25 @@ class UserService{
     }
   }
 
-  Future<User> getUser({String username, String password}) async {
-  List<User> users = await getAllUsers();
-  User user;
-  for(User u in users){
-    if(username == u.userId && password ==u.password)
-      user  = u;
-    break;
-  }
-  return user;
-}
+  Future<User> getUser({String username, String password}) async{
+    User user;
+    var response = await http.get(urlget);
 
+    if (response.statusCode == 200) {
+      var jsonResponse = convert.jsonDecode(response.body);
+      for (var u in jsonResponse){
+        if(username == u['username'] && password == u['password']) {
+          user = User.fromJson(u);
+          print(user.username + " " + user.password);
+          break;
+        }
+      }
+
+    } else {
+      print('Request failed with status: ${response.statusCode}.');
+    }
+    await Future.delayed(Duration(seconds: 1));
+    return user;
+  }
 
 }

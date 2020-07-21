@@ -23,15 +23,15 @@ class Body extends StatelessWidget {
               style: TextStyle(fontWeight: FontWeight.bold),
             ),
             SizedBox(height: size.height * 0.05),
-            SvgPicture.asset(
-              "assets/icons/logo.svg",
+            Image.asset(
+              "assets/images/logo.png",
               height: size.height * 0.45,
             ),
             SizedBox(height: size.height * 0.05),
             RoundedButton(
               text: "LOGIN",
               press: () {
-                Navigator.push(
+                Navigator.pushReplacement(
                   context,
                   MaterialPageRoute(
                     builder: (context) {
@@ -46,7 +46,7 @@ class Body extends StatelessWidget {
               color: kPrimaryLightColor,
               textColor: Colors.black,
               press: () {
-                Navigator.push(
+                Navigator.pushReplacement(
                   context,
                   MaterialPageRoute(
                     builder: (context) {

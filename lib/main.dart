@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:scp/screens/Welcome/welcome_screen.dart';
+
 import 'screens/login/login_screen.dart';
 import 'screens/signup/signup_screen.dart';
 import 'screens/scan/components/generate.dart';
@@ -21,15 +23,16 @@ import 'screens/wholesaler/wholesalerHome.dart';
 
 void main() => runApp(MaterialApp(
   debugShowCheckedModeBanner: false,
-  initialRoute: '/app',
+  initialRoute: '/',
   routes: {
     //'/': (context) => Loading(),
-    '/app': (context) => MyApp(),
+    '/': (context) => WelcomeScreen(),
+    //'/app': (context) => MyApp(),
     '/signUp': (context) => SignUpScreen(),
     '/logIn': (context) => LoginScreen(),
     '/generate':(context) => GeneratePage(),
     'scan':(context) => ScanPage(),
-    //'/welcome_screen': (context) => WelcomeScreen(),
+
     '/homepage': (context) => HomePage(),
     '/patient': (context) => PatientHome(),
     '/manufacturer': (context) => ManufacturerHome(),

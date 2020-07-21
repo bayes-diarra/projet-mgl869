@@ -14,6 +14,7 @@ class Delivery {
     this.accepted,
     this.sended,
     this.deliver,
+    this.owner,
   });
 
   String deliveryId;
@@ -24,6 +25,7 @@ class Delivery {
   bool accepted;
   bool sended;
   String deliver;
+  String owner;
 
   factory Delivery.fromJson(Map<String, dynamic> json) => Delivery(
     deliveryId: json["DeliveryID"],
@@ -34,6 +36,7 @@ class Delivery {
     accepted: json["Accepted"],
     sended: json["Sended"],
     deliver: json["Deliver"],
+    owner: json["Owner"],
   );
 
   Map<String, dynamic> toJson() => {
@@ -45,6 +48,7 @@ class Delivery {
     "Accepted": accepted,
     "Sended": sended,
     "Deliver": deliver,
+    "Owner": owner
   };
 
 
