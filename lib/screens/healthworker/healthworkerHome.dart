@@ -1,6 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:scp/model/User.dart';
 
-class HealthworkerHome extends StatelessWidget {
+class HealthworkerHome extends StatefulWidget {
+  final User user;
+  HealthworkerHome({Key key, this.user}) : super(key:key);
+  @override
+  _HealthworkerHomeState createState() => _HealthworkerHomeState();
+}
+
+class _HealthworkerHomeState extends State<HealthworkerHome> {
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

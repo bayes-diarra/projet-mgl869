@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:scp/components/rounded_button.dart';
 
-import 'components/generate.dart';
-import 'components/scan.dart';
-
 
 class ScanScreen extends StatefulWidget {
   @override

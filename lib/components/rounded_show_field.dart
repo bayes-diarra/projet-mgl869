@@ -2,17 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:scp/components/text_field_container.dart';
 import 'package:scp/utility/constants.dart';
 
-class RoundedInputField extends StatelessWidget {
-  final String hintText;
+class RoundedShowField extends StatelessWidget {
+  final String labelText;
   final IconData icon;
-  final ValueChanged<String> onChanged;
+  final bool enable;
   final TextEditingController controller;
-  const RoundedInputField({
+  final IconButton suffixeIcon;
+  const RoundedShowField({
     Key key,
-    this.hintText,
+    this.labelText,
+    this.enable,
+    this.suffixeIcon,
     this.controller,
     this.icon,
-    this.onChanged,
   }) : super(key: key);
 
   @override
@@ -20,14 +22,15 @@ class RoundedInputField extends StatelessWidget {
     return TextFieldContainer(
       child: TextFormField(
         controller: controller,
-        onChanged: onChanged,
+        enabled: enable,
         cursorColor: kPrimaryColor,
         decoration: InputDecoration(
           icon: Icon(
             icon,
             color: kPrimaryColor,
           ),
-          hintText: hintText,
+          labelText: labelText,
+          suffixIcon: suffixeIcon,
           border: InputBorder.none,
         ),
       ),

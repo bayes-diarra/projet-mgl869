@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
+//import 'package:flutter_svg/svg.dart';
 import 'package:scp/components/rounded_password_field.dart';
 import 'package:scp/model/User.dart';
 import 'package:scp/screens/deliver/deliverHome.dart';
@@ -24,17 +24,18 @@ class Body extends StatefulWidget {
 
 class _BodyState extends State<Body> {
 UserService _service =  new UserService();
-User _user = User();
 bool _obscurText = true;
 
 final TextEditingController usernameController = TextEditingController();
 final TextEditingController passwordController = TextEditingController();
+final TextEditingController organizationController = TextEditingController();
 
 @override
 void dispose() {
   // Clean up the controller when the widget is disposed.
   usernameController.dispose();
   passwordController.dispose();
+  organizationController.dispose();
   super.dispose();
 }
 
@@ -60,11 +61,12 @@ void dispose() {
             RoundedInputField(
               controller: usernameController,
               hintText: "Username",
+              icon: Icons.person,
               //onChanged: (value) {},
             ),
             RoundedPasswordField(
               controller: passwordController,
-              //onChanged: (value) {},
+              hintText: "Password",
               obscureText: _obscurText,
               suffixeIcon: IconButton(
                 onPressed: () {
@@ -82,79 +84,81 @@ void dispose() {
                   color: kPrimaryColor,
                 ),),
             ),
+            RoundedInputField(
+              controller: organizationController,
+              hintText: "Organization",
+            ),
             RoundedButton(
               text: "LOGIN",
               press: () async{
                 final String username = usernameController.text;
                 final String password = passwordController.text;
-                final User user = await _service.authenticateUser(username: username,password: password);
+                final String organization = organizationController.text;
+
+                final User user = await _service.signInUser(username: username, password: password , organization: organization);
 
                 if(user != null && _service.isLogin)
                   {
-                    if(user.role == "patient"){
+                    if(user.organization == "patient"){
                       Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(
                           builder: (context) {
-                            return PatientHome();
+                            return PatientHome(user: user);
                           },
                         ),
                       );
                     }
 
-                    if(user.role == "manufacturer"){
+                    if(user.organization == "manufacturer"){
                       Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(
                           builder: (context) {
-                            return ManufacturerHome();
+                            return ManufacturerHome(user: user);
                           },
                         ),
                       );
                     }
-                    if(user.role == "deliver"){
+                    if(user.organization == "deliver"){
                       Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(
                           builder: (context) {
-                            return DeliverHome();
+                            return DeliverHome(user: user);
                           },
                         ),
                       );
                     }
-                    if(user.role == "wholesaler"){
-                      Navigator.pushReplacement(
+                    if(user.organization == "wholesaler"){
+                      Navigator.push(
                         context,
                         MaterialPageRoute(
                           builder: (context) {
-                            return WholesalerHome();
+                            return WholesalerHome(user: user);
                           },
                         ),
                       );
                     }
-                    if(user.role == "doctor"){
+                    if(user.organization == "doctor"){
                       Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(
                           builder: (context) {
-                            return HealthworkerHome();
+                            return HealthworkerHome(user: user);
                           },
                         ),
                       );
                     }
                   }
                 else{
-                      Scaffold.of(context).showSnackBar(
-                        SnackBar(
-                          content: Text('${_service.message}'),
-                          backgroundColor: Colors.red,
-                          ),
-                        );
+                    Scaffold.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text('${_service.message}'),
+                        backgroundColor: Colors.red,
+                        ),
+                      );
                 }
-
-                setState(() {
-                  _user = user;
-                });
               },
             ),
             SizedBox(height: size.height * 0.03),

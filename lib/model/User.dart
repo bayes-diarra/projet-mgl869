@@ -8,29 +8,29 @@ String userToJson(User data) => json.encode(data.toJson());
 
 class User {
   User({
-    this.userId,
+    //this.userId,
     this.username,
     this.password,
-    this.role,
+    this.organization,
   });
 
-  String userId;
+  //String userId;
   String username;
   String password;
-  String role;
+  String organization;
 
   factory User.fromJson(Map<String, dynamic> json) => User(
-    userId: json["userId"],
-    username: json["username"],
-    password: json["password"],
-    role: json["role"],
+    //userId: json["userId"],
+    username: json["Username"],
+    password: json["Password"],
+    organization: json["Organization"],
   );
 
   Map<String, dynamic> toJson() => {
-    "userId": userId,
+    //"userId": userId,
     "username": username,
     "password": password,
-    "role": role,
+    "role": organization,
   };
 
 

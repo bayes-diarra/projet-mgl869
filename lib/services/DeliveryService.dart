@@ -3,35 +3,25 @@ import 'package:http/http.dart' as http;
 import 'dart:convert' as convert;
 
 import 'package:scp/model/Delivery.dart';
+import 'package:scp/model/User.dart';
 
 class DeliveryService {
 
 
 
-  final String urlget = "https://next.json-generator.com/api/json/get/VJFnefg1Y";//TODO : change to the real URL
-  final String urlpost="";//TODO : link to create a delivery
-  final String urldelete="";//TODO: link to cancel a delivery
-  final String urlput="";//TODO : link to update a delivery
-
+   String urlget = "";// link to get  a or deliveries
+   String urlpost="";// : link to create a delivery
   String message="";
 
-  Future<Delivery> addDelivery({String prodcutId,
-  int weight,
-  DateTime dateOfDelivery,
-  bool served,
-  bool accepted,
-  bool sended,
-  String deliver,}) async{
+
+  // Send delivery request
+  Future<Delivery> sendDeliveryRequest({User user, String productId, String weight, DateTime dateOfDelivery,})  async{
+    urlpost="localhost:3000/SendDeliveryRequest/${user.username}/${user.organization}";
 
     final response = await http.post(urlpost, body: {
-
-      "ProdcutID": prodcutId,
+      "ProductID": productId,
       "Weight": weight,
       "DateOfDelivery": dateOfDelivery.toIso8601String(),
-      "Served": served,
-      "Accepted": accepted,
-      "Sended": sended,
-      "Deliver": deliver,
     });
 
     if(response.statusCode == 201){
@@ -43,7 +33,103 @@ class DeliveryService {
     }
   }
 
-  Future<Delivery> updateDelivery({String prodcutId,
+
+  //sendDelivery
+   Future<Delivery> sendDelivery({User user, String delid})  async{
+
+     urlpost="localhost:3000/SendDelivery/${user.username}/${user.organization}";
+
+     final response = await http.post(urlpost, body: {
+       "DELID": delid,
+     });
+     if(response.statusCode == 201){
+       final String responseString = response.body;
+
+       return deliveryFromJson(responseString);
+     }else{
+       return null;
+     }
+   }
+
+    // ServeDeliver
+   Future<Delivery> serveDelivery({User user, String delid})  async{
+
+     urlpost="localhost:3000/ServeDelivery/${user.username}/${user.organization}";
+
+     final response = await http.post(urlpost, body: {
+       "DELID": delid,
+       "Deliver": user.username
+     });
+     if(response.statusCode == 201){
+       final String responseString = response.body;
+
+       return deliveryFromJson(responseString);
+     }else{
+       return null;
+     }
+   }
+
+   Future<Delivery> acceptDelivery({User user, String delid})  async{
+
+     urlpost="localhost:3000/AcceptDelivery/${user.username}/${user.organization}";
+
+     final response = await http.post(urlpost, body: {
+       "DELID": delid
+     });
+     if(response.statusCode == 201){
+       final String responseString = response.body;
+       return deliveryFromJson(responseString);
+     }else{
+       return null;
+     }
+   }
+
+
+   Future<List<Delivery>> getDeliveries()async{
+     List<Delivery> deliveries = [];
+     urlget="https://next.json-generator.com/api/json/get/VJFnefg1Y";
+     var response = await http.get(urlget);
+     if (response.statusCode == 200) {
+       var jsonResponse = convert.jsonDecode(response.body);
+       for (var d in jsonResponse){
+         Delivery delivery = Delivery.fromJson(d); //TODO: d or d[Record]
+         deliveries.add(delivery);
+       }
+       int x = deliveries.length;
+       print('Number of users about http: $x');
+     } else {
+       print('Request failed with status: ${response.statusCode}.');
+     }
+
+     return deliveries;
+   }
+
+
+  // QueryDeliveryRequest
+  Future<List<Delivery>> queryDeliveryRequest(User user) async{
+    List<Delivery> deliveries = [];
+    urlget="localhost:3000/QueryDeliveryRequest/${user.username}/${user.organization}";
+    var response = await http.get(urlget);
+    if (response.statusCode == 200) {
+      var jsonResponse = convert.jsonDecode(response.body);
+      for (var d in jsonResponse){
+        Delivery delivery = Delivery.fromJson(d); //TODO: d or d[Record]
+        deliveries.add(delivery);
+      }
+      int x = deliveries.length;
+      print('Number of users about http: $x');
+    } else {
+      print('Request failed with status: ${response.statusCode}.');
+    }
+
+    return deliveries;
+  }
+
+
+
+
+
+/*Future<Delivery> updateDelivery({String productId,
     int weight,
     DateTime dateOfDelivery,
     bool served,
@@ -53,7 +139,7 @@ class DeliveryService {
 
     final response = await http.put(urlput, body: {
 
-      "ProdcutID": prodcutId,
+      "ProdcutID": productId,
       "Weight": weight,
       "DateOfDelivery": dateOfDelivery.toIso8601String(),
       "Served": served,
@@ -82,34 +168,5 @@ class DeliveryService {
     }else{
       return false;
     }
-  }
-
-  Future<List<Delivery>> getAllDeliveries() async{
-    List<Delivery> deliveries = [];
-    var response = await http.get(urlget);
-    if (response.statusCode == 200) {
-      var jsonResponse = convert.jsonDecode(response.body);
-      for (var d in jsonResponse){
-        Delivery delivery = Delivery.fromJson(d);
-        deliveries.add(delivery);
-      }
-      int x = deliveries.length;
-      print('Number of users about http: $x');
-    } else {
-      print('Request failed with status: ${response.statusCode}.');
-    }
-
-    return deliveries;
-  }
-
-  Future<Delivery> getDelivery(String id) async{
-    List<Delivery> deliveries = await getAllDeliveries();
-    Delivery delivery;
-    for(Delivery d in deliveries){
-      if(id == d.deliveryId)
-        delivery  = d;
-      break;
-    }
-    return delivery;
-  }
+  }*/
 }

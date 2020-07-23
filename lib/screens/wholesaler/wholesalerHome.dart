@@ -1,6 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:scp/model/User.dart';
 
-class WholesalerHome extends StatelessWidget {
+class WholesalerHome extends StatefulWidget {
+  final User user;
+  WholesalerHome({Key key ,this.user}): super(key:key);
+  @override
+  _WholesalerHomeState createState() => _WholesalerHomeState();
+}
+
+class _WholesalerHomeState extends State<WholesalerHome> {
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

@@ -1,8 +1,12 @@
 import 'package:barcode_scan/barcode_scan.dart';
 import 'package:flutter/material.dart';
 import 'package:scp/components/rounded_button.dart';
+import 'package:scp/model/User.dart';
+import 'package:scp/screens/common/send_delivery_request.dart';
 
 class ScanPage extends StatefulWidget {
+  User user;
+  ScanPage({Key key, this.user}) : super(key : key);
   @override
   _ScanPageState createState() => _ScanPageState();
 }
@@ -23,7 +27,7 @@ class _ScanPageState extends State<ScanPage> {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
             Text(
-              "Result",
+              "ProductId",
               style: TextStyle(fontSize: 25.0, fontWeight: FontWeight.bold),
               textAlign: TextAlign.center,
             ),
@@ -46,44 +50,24 @@ class _ScanPageState extends State<ScanPage> {
                     await BarcodeScanner.scan(); //barcode scnner
                 setState(() {
                   qrCodeResult = codeSanner;
-                });
-
-                // try{
-                //   BarcodeScanner.scan()    this method is used to scan the QR code
-                // }catch (e){
-                //   BarcodeScanner.CameraAccessDenied;   we can print that user has denied for the permisions
-                //   BarcodeScanner.UserCanceled;   we can print on the page that user has cancelled
-                // }
-              },
-            ),
-            /*FlatButton(
-              padding: EdgeInsets.all(15.0),
-              onPressed: () async {
-                String codeSanner =
-                    await BarcodeScanner.scan(); //barcode scnner
-                setState(() {
-                  qrCodeResult = codeSanner;
-                });
-
-                // try{
-                //   BarcodeScanner.scan()    this method is used to scan the QR code
-                // }catch (e){
-                //   BarcodeScanner.CameraAccessDenied;   we can print that user has denied for the permisions
-                //   BarcodeScanner.UserCanceled;   we can print on the page that user has cancelled
-                // }
-              },
-              child: Text(
-                "Open Scanner",
-                style:
-                    TextStyle(color: Colors.blue, fontWeight: FontWeight.bold),
-              ),
-              shape: RoundedRectangleBorder(
-                  side: BorderSide(color: Colors.blue, width: 3.0),
-                  borderRadius: BorderRadius.circular(20.0)),
-            )*/
-          ],
+                });}),
+                RoundedButton(
+                    text: "Go back",
+                    color: Colors.white,
+                    textColor: Colors.black,
+                    press :qrCodeResult==null?(){}:() {
+                  Navigator.pushReplacement(context,
+                  MaterialPageRoute(
+                  builder: (context) {
+                  return SendDeliveryRequest(user: widget.user,productId: qrCodeResult,);
+                  },
+                  ),
+              );
+                    }
+                    ),
+              ]
         ),
-      ),
+            ),
     );
   }
 

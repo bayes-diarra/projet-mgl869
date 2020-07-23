@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:flutter_svg/svg.dart';
+//import 'package:flutter_svg/svg.dart';
 import 'package:scp/screens/login/login_screen.dart';
 import 'package:scp/screens/signup/signup_screen.dart';
 import 'package:scp/components/rounded_button.dart';

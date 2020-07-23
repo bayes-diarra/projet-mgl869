@@ -14,11 +14,11 @@ class Product {
     this.holders,
   });
 
-  String productId;
-  String manufacturingDate;
-  String expirationDate;
-  String name;
-  String manufacturer;
+  String productId = " ";
+  String manufacturingDate=" ";
+  String expirationDate=" ";
+  String name=" ";
+  String manufacturer=" ";
   List<dynamic> holders;
 
   factory Product.fromJson(Map<String, dynamic> json) => Product(

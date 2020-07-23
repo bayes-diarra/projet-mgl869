@@ -7,8 +7,11 @@ import 'dart:convert'as convert;
 class UserService{
 
 
-  final String urlget = "https://next.json-generator.com/api/json/get/EkLrmfeyF";
-  final String urlpost="";
+  //final String urlget = "https://next.json-generator.com/api/json/get/EkLrmfeyF";
+
+  String urlpost="";
+  String urlget = "";
+
   bool isLogin = false;
   String message;
   String token;
@@ -16,8 +19,8 @@ class UserService{
   User user;
 
 
-  Future<User> registerUser({String username, String password,String role}) async{
-    User user = await addUser(username: username, password: password, role: role);
+  Future<User> registerUser({String username, String password,String organization}) async{
+    User user = await createUser(username: username, password: password, organization: organization);
     if (user != null) {
       isRegister = true;
       message = " SignUp : Success!! ";
@@ -26,17 +29,16 @@ class UserService{
       message = " SignUp : Error ";
       isRegister=false;
     }
-    return await authenticateUser(username: user.username,password: user.password);;
+    return await signInUser(username: user.username,password: user.password, organization: user.organization);
   }
 
   void logOut(){
     isLogin=false;
   }
 
-
-  Future<User> authenticateUser({@required String username, @required String password}) async {
-    User user = await getUser(username: username, password: password);
-
+  //
+  Future<User> signInUser({@required String username, @required String password, @required String organization}) async {
+    User user = await getUser(username: username, password: password,organization : organization);
     if(user !=null ){
       isLogin =true;
       message =" SignIn : Success!! ";
@@ -45,56 +47,33 @@ class UserService{
       isLogin=false;
       message = " SignIn : Error ";
     }
-
     return user;
   }
 
-  Future<List<User>> getAllUsers() async{
-    List<User> users = [];
-    var response = await http.get(urlget);
-
-    if (response.statusCode == 200) {
-      var jsonResponse = convert.jsonDecode(response.body);
-      for (var u in jsonResponse){
-        User user = User.fromJson(u);
-        users.add(user);
-      }
-      int x = users.length;
-      print('Number of users about http: $x');
-    } else {
-      print('Request failed with status: ${response.statusCode}.');
-    }
-
-    return users;
-  }
-
-  Future<User> addUser({@required String username,@required String password, @required String role}) async{
-
-    final response = await http.post(urlpost, body: {
-      "username": username,
-      "password": password,
-      "role": role,
-    });
+  // create a user
+  Future<User> createUser({@required String username,@required String password, @required String organization}) async{
+    urlpost = "localhost:3000/RegisterUser/$username-$password-$organization";
+    final response = await http.post(urlpost);
 
     if(response.statusCode == 201){
       final String responseString = response.body;
-
       return userFromJson(responseString);
     }else{
       return null;
     }
   }
 
-  Future<User> getUser({String username, String password}) async{
+  Future<User> getUser({String username, String password, String organization}) async{
     User user;
+    urlget ="localhost:3000/SignInUser/$username-$password-$organization";
     var response = await http.get(urlget);
 
     if (response.statusCode == 200) {
       var jsonResponse = convert.jsonDecode(response.body);
       for (var u in jsonResponse){
-        if(username == u['username'] && password == u['password']) {
+        if(username == u['Username'] && password == u['Password'] && organization==u["Organization"]) {
           user = User.fromJson(u);
-          print(user.username + " " + user.password);
+          print(user.username + " " + user.password+" "+user.organization);
           break;
         }
       }

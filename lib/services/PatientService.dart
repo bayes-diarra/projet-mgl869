@@ -8,13 +8,14 @@ class PatientService{
 
   final String urlget="https://next.json-generator.com/api/json/get/NyVSV0yJY";
 
-  Future<List<Patient>> getAllProducts() async{
+  Future<List<Patient>> getAllPatient() async{
     List<Patient> patients = [];
     var response = await http.get(urlget);
     if (response.statusCode == 200) {
       var jsonResponse = convert.jsonDecode(response.body);
       for (var p in jsonResponse){
         Patient patient = Patient.fromJson(p);
+        patients.add(patient);
       }
       int x = patients.length;
       print('Number of users about http: $x');

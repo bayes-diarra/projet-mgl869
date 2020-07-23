@@ -1,6 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:scp/model/User.dart';
+import 'package:scp/screens/manufacturer/add_product.dart';
+class ManufacturerHome extends StatefulWidget {
+  final User user;
+  ManufacturerHome({Key key ,this.user}): super(key:key);
+  @override
+  _ManufacturerHomeState createState() => _ManufacturerHomeState();
+}
 
-class ManufacturerHome extends StatelessWidget {
+class _ManufacturerHomeState extends State<ManufacturerHome> {
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -11,7 +20,13 @@ class ManufacturerHome extends StatelessWidget {
             child: Column(
                 children: <Widget>[
                   RaisedButton(onPressed: () {
-                    Navigator.pushNamed(context, '/add_product');
+                    Navigator.push(context,
+                        MaterialPageRoute(
+                        builder: (context) {
+                      return AddProduct(user: widget.user);
+                    },
+                    ),
+                    );
                   },
                     child: Text('Add Product'),
                   ),
