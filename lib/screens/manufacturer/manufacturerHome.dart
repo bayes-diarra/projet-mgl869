@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:MedChain/screens/manufacturer/components/nav_drawer.dart';
 import 'package:MedChain/utility/constants.dart';
 import 'package:flutter/material.dart';

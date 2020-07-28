@@ -126,7 +126,7 @@ class _BodyState extends State<Body> {
                         password: password,
                         organization: organization);
                     if (user != null && _service.isLogin) {
-                      if (user.organization == "patient") {
+                      if (user.organization == "Org4MSP") {
                         Navigator.pushReplacement(
                           context,
                           MaterialPageRoute(
@@ -137,7 +137,7 @@ class _BodyState extends State<Body> {
                         );
                       }
 
-                      if (user.organization == "manufacturer") {
+                      if (user.organization == "Org1MSP") {
                         Navigator.pushReplacement(
                           context,
                           MaterialPageRoute(
@@ -147,7 +147,7 @@ class _BodyState extends State<Body> {
                           ),
                         );
                       }
-                      if (user.organization == "deliver") {
+                      if (user.organization == "Org2MSP") {
                         Navigator.pushReplacement(
                           context,
                           MaterialPageRoute(
@@ -157,7 +157,7 @@ class _BodyState extends State<Body> {
                           ),
                         );
                       }
-                      if (user.organization == "wholesaler") {
+                      if (user.organization == "Org3MSP") {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
@@ -167,7 +167,7 @@ class _BodyState extends State<Body> {
                           ),
                         );
                       }
-                      if (user.organization == "doctor") {
+                      if (user.organization == "Org5MSP") {
                         Navigator.pushReplacement(
                           context,
                           MaterialPageRoute(

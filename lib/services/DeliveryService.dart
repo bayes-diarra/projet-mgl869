@@ -78,7 +78,7 @@ class DeliveryService {
     }
   }
 
-  Future<List<Delivery>> getDeliveries() async {
+  /*Future<List<Delivery>> getDeliveries() async {
     List<Delivery> deliveries = [];
     urlget = "https://next.json-generator.com/api/json/get/VJFnefg1Y";
     var response = await http.get(urlget);
@@ -95,7 +95,7 @@ class DeliveryService {
     }
 
     return deliveries;
-  }
+  }*/
 
   // QueryDeliveryRequest
   Future<List<Delivery>> queryDeliveryRequest(User user) async {

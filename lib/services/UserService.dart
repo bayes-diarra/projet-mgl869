@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:MedChain/model/User.dart';
 import 'package:http/http.dart' as http;
@@ -23,11 +25,15 @@ class UserService {
     if (user != null) {
       isRegister = true;
       message = " SignUp : Success!! ";
+      print("SignUp: Success!!");
     } else {
       message = " SignUp : Error ";
       isRegister = false;
+      print(" SignUp : Error ");
+      return null;
     }
 
+    sleep(const Duration(seconds: 2));
     return await signInUser(
         username: user.username,
         password: user.password,
@@ -62,7 +68,7 @@ class UserService {
       @required String password,
       @required String organization}) async {
     urlpost = link + "/RegisterUser/$username-$password-$organization";
-    final response = await http.post(urlpost);
+    final response = await http.get(urlpost);
     await Future.delayed(Duration(seconds: 1));
     if (response.statusCode == 201) {
       final String responseString = response.body;
