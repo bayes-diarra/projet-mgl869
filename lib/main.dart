@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:scp/screens/Welcome/welcome_screen.dart';
-import 'package:scp/screens/scan/scan_screen.dart';
+import 'package:MedChain/screens/my_app.dart';
+import 'package:MedChain/screens/scan/scan_screen.dart';
 
 import 'screens/login/login_screen.dart';
 import 'screens/signup/signup_screen.dart';
@@ -22,32 +22,29 @@ import 'screens/patient/patientHome.dart';
 import 'screens/wholesaler/wholesalerHome.dart';
 
 void main() => runApp(MaterialApp(
-  debugShowCheckedModeBanner: false,
-  initialRoute: '/',
-  routes: {
-    //'/': (context) => Loading(),
-    '/': (context) => WelcomeScreen(),
-    //'/': (context) => MyApp(),
-    '/signUp': (context) => SignUpScreen(),
-    '/logIn': (context) => LoginScreen(),
-    '/generate':(context) => GeneratePage(),
-    '/scan':(context) => ScanPage(),
-    '/scanPage': (context)=> ScanScreen(),
-    '/homepage': (context) => HomePage(),
-    '/patient': (context) => PatientHome(),
-    '/manufacturer': (context) => ManufacturerHome(),
-    '/wholesaler': (context) => WholesalerHome(),
-    '/healthworker': (context) => HealthworkerHome(),
-    '/deliver': (context) => DeliverHome(),
-    '/accept_delivery': (context) => AcceptDelivery(),
-    '/add_product': (context) => AddProduct(),
-    '/get_product': (context) => GetProduct(),
-    '/available_deliveries': (context) => AvailableDeliveries(),
-    '/send_delivery': (context) => SendDelivery(),
-    '/send_delivery_request': (context) => SendDeliveryRequest(),
-    '/serve_delivery': (context) => ServeDelivery(),
-  },
-));
-
-
-
+      debugShowCheckedModeBanner: false,
+      initialRoute: '/manufacturer',
+      routes: {
+        //'/': (context) => Loading(),
+        //'/': (context) => WelcomeScreen(),
+        '/': (context) => MyApp(),
+        '/signUp': (context) => SignUpScreen(),
+        '/logIn': (context) => LoginScreen(),
+        '/generate': (context) => GeneratePage(),
+        '/scan': (context) => ScanPage(),
+        '/scanPage': (context) => ScanScreen(),
+        '/homepage': (context) => HomePage(),
+        '/patient': (context) => PatientHome(),
+        '/manufacturer': (context) => ManufacturerHome(),
+        '/wholesaler': (context) => WholesalerHome(),
+        '/healthworker': (context) => HealthworkerHome(),
+        '/deliver': (context) => DeliverHome(),
+        '/accept_delivery': (context) => AcceptDelivery(),
+        '/add_product': (context) => AddProduct(),
+        '/get_product': (context) => GetProduct(),
+        '/available_deliveries': (context) => AvailableDeliveries(),
+        '/send_delivery': (context) => SendDelivery(),
+        '/send_delivery_request': (context) => SendDeliveryRequest(),
+        '/serve_delivery': (context) => ServeDelivery(),
+      },
+    ));

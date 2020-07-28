@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:scp/components/text_field_container.dart';
-import 'package:scp/utility/constants.dart';
+import 'package:MedChain/components/text_field_container.dart';
+import 'package:MedChain/utility/constants.dart';
 
 class RoundedPasswordField extends StatelessWidget {
   final ValueChanged<String> onChanged;
@@ -9,12 +9,12 @@ class RoundedPasswordField extends StatelessWidget {
   final bool obscureText;
   final String hintText;
 
-   RoundedPasswordField({
+  RoundedPasswordField({
     Key key,
     this.controller,
-     this.obscureText,
-     this.hintText,
-     this.suffixeIcon,
+    this.obscureText,
+    this.hintText,
+    this.suffixeIcon,
     this.onChanged,
   }) : super(key: key);
 

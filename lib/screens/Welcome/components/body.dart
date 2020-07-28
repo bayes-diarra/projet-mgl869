@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
 //import 'package:flutter_svg/svg.dart';
-import 'package:scp/screens/login/login_screen.dart';
-import 'package:scp/screens/signup/signup_screen.dart';
-import 'package:scp/components/rounded_button.dart';
-import 'package:scp/utility/constants.dart';
+import 'package:MedChain/screens/login/login_screen.dart';
+import 'package:MedChain/screens/signup/signup_screen.dart';
+import 'package:MedChain/components/rounded_button.dart';
+import 'package:MedChain/utility/constants.dart';
 
 import 'background.dart';
 
@@ -19,7 +19,7 @@ class Body extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Text(
-              "WELCOME TO [AppName]",
+              "WELCOME TO MedChain",
               style: TextStyle(fontWeight: FontWeight.bold),
             ),
             SizedBox(height: size.height * 0.05),

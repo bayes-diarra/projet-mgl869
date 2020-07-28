@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:scp/utility/constants.dart';
+import 'package:MedChain/utility/constants.dart';
 
 import 'Welcome/welcome_screen.dart';
 
@@ -9,7 +9,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Flutter Auth',
+      title: 'MedChain',
       theme: ThemeData(
         primaryColor: kPrimaryColor,
         scaffoldBackgroundColor: Colors.white,

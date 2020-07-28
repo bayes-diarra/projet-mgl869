@@ -1,19 +1,18 @@
 import 'package:http/http.dart' as http;
 import 'dart:convert' as convert;
 
-import 'package:scp/model/Patient.dart';
+import 'package:MedChain/model/Patient.dart';
 
-class PatientService{
+class PatientService {
+  final String urlget =
+      "https://next.json-generator.com/api/json/get/NyVSV0yJY";
 
-
-  final String urlget="https://next.json-generator.com/api/json/get/NyVSV0yJY";
-
-  Future<List<Patient>> getAllPatient() async{
+  Future<List<Patient>> getAllPatient() async {
     List<Patient> patients = [];
     var response = await http.get(urlget);
     if (response.statusCode == 200) {
       var jsonResponse = convert.jsonDecode(response.body);
-      for (var p in jsonResponse){
+      for (var p in jsonResponse) {
         Patient patient = Patient.fromJson(p);
         patients.add(patient);
       }
@@ -24,5 +23,4 @@ class PatientService{
     }
     return patients;
   }
-
 }

@@ -1,4 +1,4 @@
-# scp
+# MedChain
 
 Medical Supply Chain appliation
 

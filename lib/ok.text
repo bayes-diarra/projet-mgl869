@@ -1,0 +1,20 @@
+Card(
+                  child: Column(
+                children: <Widget>[
+                  Text("Product ID: " + product.productId == null
+                      ? ""
+                      : product.productId),
+                      Text("Name: " + product.name == null ? "" : product.name),
+                  Text("Manufacturer: " + product.manufacturer == null
+                      ? ""
+                      : product.manufacturer),
+                  Text(
+                      "Manufacturing date: " + product.manufacturingDate == null
+                          ? ""
+                          : product.manufacturingDate),
+                  Text("Expiration date: " + product.expirationDate == null
+                      ? ""
+                      : product.expirationDate),
+                  Text("Holders: " + holders),
+                ],
+              ))

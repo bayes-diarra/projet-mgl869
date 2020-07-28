@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:scp/components/rounded_button.dart';
-
+import 'package:MedChain/components/rounded_button.dart';
 
 class ScanScreen extends StatefulWidget {
   @override
@@ -28,7 +27,7 @@ class _ScanScreenState extends State<ScanScreen> {
             color: Colors.red,
             textColor: Colors.white,
             press: () async {
-              Navigator.pushNamed(context,"/scan");
+              Navigator.pushNamed(context, "/scan");
             },
           ),
           SizedBox(

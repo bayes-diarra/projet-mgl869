@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:scp/screens/signup/components/body.dart';
+import 'package:MedChain/screens/signup/components/body.dart';
 
 class SignUpScreen extends StatelessWidget {
   @override
