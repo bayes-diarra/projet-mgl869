@@ -1,3 +1,4 @@
+import 'package:MedChain/screens/common/body.dart';
 import 'package:MedChain/screens/deliver/components/nav_drawer.dart';
 import 'package:MedChain/utility/constants.dart';
 import 'package:flutter/material.dart';
@@ -18,7 +19,7 @@ class _DeliverHomeState extends State<DeliverHome> {
   @override
   void initState() {
     username = widget.user == null ? "" : widget.user.username;
-    organization = widget.user == null ? "" : widget.user.username;
+    organization = widget.user == null ? "" : widget.user.organization;
     super.initState();
   }
 
@@ -29,7 +30,10 @@ class _DeliverHomeState extends State<DeliverHome> {
           backgroundColor: kPrimaryColor,
           title: Text('Deliver'),
         ),
-        body: Center(child: Text("Deliver Home")),
+        body: Center(
+            child: Body(
+          user: widget.user,
+        )),
         drawer: NavDrawer(
           key: widget.key,
           user: widget.user,

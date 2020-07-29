@@ -1,6 +1,7 @@
 import 'package:MedChain/components/general_functions.dart';
 import 'package:MedChain/model/User.dart';
 import 'package:MedChain/screens/common/get_product.dart';
+import 'package:MedChain/screens/common/send_delivery_request.dart';
 import 'package:MedChain/screens/wholesaler/available_deliveries.dart';
 import 'package:flutter/material.dart';
 
@@ -22,8 +23,20 @@ class NavDrawer extends StatelessWidget {
             accountEmail: Text(orga == null ? "" : orga),
             currentAccountPicture: CircleAvatar(
                 backgroundColor: Colors.yellow[700],
-                child: Text(usrname == null ? "" : usrname.substring(0))),
+                child: Text(usrname == null
+                    ? ""
+                    : usrname.substring(0, 1).toUpperCase())),
           ),
+          ListTile(
+            leading: Icon(Icons.send),
+            title: Text('Send Delivery Request'),
+            onTap: () {
+              Navigator.of(context).push(MaterialPageRoute(builder: (context) {
+                return SendDeliveryRequest(key: key, user: user);
+              }));
+            },
+          ),
+          Divider(),
           ListTile(
             leading: Icon(Icons.check_circle_outline),
             title: Text('Accept Delivery'),

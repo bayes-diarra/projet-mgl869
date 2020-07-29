@@ -23,7 +23,7 @@ class DeliveryService {
     final response = await http.post(urlpost, body: {
       "ProductID": productId,
       "Weight": weight,
-      "DateOfDelivery": dateOfDelivery.toIso8601String(),
+      "DateOfDelevery": dateOfDelivery.toIso8601String(),
     });
 
     if (response.statusCode == 201) {
@@ -103,18 +103,31 @@ class DeliveryService {
     urlget =
         link + "/QueryDeliveryRequest/${user.username}/${user.organization}";
     var response = await http.get(urlget);
+    Delivery delivery = Delivery();
+    var record;
     if (response.statusCode == 200) {
       var jsonResponse = convert.jsonDecode(response.body);
       for (var d in jsonResponse) {
-        Delivery delivery = Delivery.fromJson(d); //TODO: d or d[Record]
-        deliveries.add(delivery);
+        record = d["Record"];
+        delivery.deliveryId = d["Key"];
+        delivery.productId = record["Product_Id"];
+        delivery.weight = record["weight"];
+        delivery.dateOfDelivery = record["DateOfdelivery"];
+        delivery.served = record["Served"];
+        delivery.sended = record["Sended"];
+        delivery.accepted = record["Accepted"];
+        delivery.deliver = record["Deliver"];
+        if (delivery.served == false) {
+          deliveries.add(delivery);
+        }
+
+        delivery = Delivery();
       }
       int x = deliveries.length;
       print('Number of users about http: $x');
     } else {
       print('Request failed with status: ${response.statusCode}.');
     }
-
     return deliveries;
   }
 }

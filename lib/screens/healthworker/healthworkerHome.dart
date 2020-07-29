@@ -1,3 +1,4 @@
+import 'package:MedChain/screens/common/body.dart';
 import 'package:MedChain/screens/healthworker/components/nav_drawer.dart';
 import 'package:MedChain/utility/constants.dart';
 import 'package:flutter/material.dart';
@@ -17,7 +18,7 @@ class _HealthworkerHomeState extends State<HealthworkerHome> {
   @override
   void initState() {
     username = widget.user == null ? "" : widget.user.username;
-    organization = widget.user == null ? "" : widget.user.username;
+    organization = widget.user == null ? "" : widget.user.organization;
     super.initState();
   }
 
@@ -26,9 +27,12 @@ class _HealthworkerHomeState extends State<HealthworkerHome> {
     return Scaffold(
         appBar: AppBar(
           backgroundColor: kPrimaryColor,
-          title: Text('Doctor'),
+          title: Text('Healthworker'),
         ),
-        body: Center(child: Text("Doctor Home")),
+        body: Center(
+            child: Body(
+          user: widget.user,
+        )),
         drawer: NavDrawer(
           key: widget.key,
           user: widget.user,

@@ -22,7 +22,9 @@ class NavDrawer extends StatelessWidget {
             accountEmail: Text(orga == null ? "" : orga),
             currentAccountPicture: CircleAvatar(
                 backgroundColor: Colors.yellow[700],
-                child: Text(usrname == null ? "" : usrname.substring(0))),
+                child: Text(usrname == null
+                    ? ""
+                    : usrname.substring(0, 1).toUpperCase())),
           ),
           ListTile(
             leading: Icon(Icons.check_circle_outline),

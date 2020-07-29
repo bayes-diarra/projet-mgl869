@@ -1,17 +1,17 @@
-import 'dart:io';
-
+import 'package:MedChain/utility/links.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:MedChain/model/User.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert' as convert;
-
-import 'package:MedChain/utility/links.dart';
+import 'package:flutter/foundation.dart';
+import 'dart:io';
 
 class UserService {
   //final String urlget = "https://next.json-generator.com/api/json/get/EkLrmfeyF";
 
   String urlpost = "";
   String urlget = "";
+
   bool isLogin = false;
   String message;
   String token;
@@ -25,19 +25,13 @@ class UserService {
     if (user != null) {
       isRegister = true;
       message = " SignUp : Success!! ";
-      print("SignUp: Success!!");
     } else {
       message = " SignUp : Error ";
       isRegister = false;
-      print(" SignUp : Error ");
-      return null;
     }
-
     sleep(const Duration(seconds: 2));
     return await signInUser(
-        username: user.username,
-        password: user.password,
-        organization: user.organization);
+        username: username, password: password, organization: organization);
   }
 
   void logOut() {
@@ -58,7 +52,6 @@ class UserService {
       isLogin = false;
       message = " SignIn : Error ";
     }
-
     return user;
   }
 
@@ -69,9 +62,10 @@ class UserService {
       @required String organization}) async {
     urlpost = link + "/RegisterUser/$username-$password-$organization";
     final response = await http.get(urlpost);
-    await Future.delayed(Duration(seconds: 1));
+
     if (response.statusCode == 201) {
       final String responseString = response.body;
+
       return userFromJson(responseString);
     } else {
       return null;
@@ -83,18 +77,21 @@ class UserService {
     User user;
     urlget = link + "/SignInUser/$username-$password-$organization";
     var response = await http.get(urlget);
-
+    debugPrint(response.body);
     if (response.statusCode == 200) {
       var jsonResponse = convert.jsonDecode(response.body);
-      for (var u in jsonResponse) {
-        if (username == u['Username'] &&
-            password == u['Password'] &&
-            organization == u["Organization"]) {
-          user = User.fromJson(u);
-          print(user.username + " " + user.password + " " + user.organization);
-          break;
-        }
+      debugPrint(jsonResponse['Username']);
+      //print(response.body.runtimeType);
+      //for (var u in jsonResponse) {
+      if (username == jsonResponse['Username'] &&
+          password == jsonResponse['Password'] &&
+          organization == jsonResponse["Organization"]) {
+        user = User.fromJson(jsonResponse);
+        print(user.username + " " + user.password + " " + user.organization);
+        //break;
+        //}
       }
+      debugPrint(response.body);
     } else {
       print('Request failed with status: ${response.statusCode}.');
     }

@@ -55,7 +55,7 @@ class _AcceptDeliveryState extends State<AcceptDelivery> {
                     } else {
                       Scaffold.of(context).showSnackBar(
                         SnackBar(
-                          content: Text('Delivery not accepted yet'),
+                          content: Text('Delivery not accepted!'),
                           backgroundColor: Colors.red,
                         ),
                       );

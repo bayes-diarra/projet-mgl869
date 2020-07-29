@@ -24,6 +24,12 @@ class _GetProductState extends State<GetProduct> {
   ProductService service = ProductService();
 
   @override
+  void initState() {
+    holders = "";
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
@@ -45,13 +51,14 @@ class _GetProductState extends State<GetProduct> {
                   textColor: Colors.black,
                   press: () async {
                     String codeSanner = await BarcodeScanner.scan();
-                    Product p = await service.getproduct(codeSanner);
+                    Product p = await service.getProduct(
+                        user: widget.user, productId: codeSanner);
 
                     setState(() {
                       if (p != null) {
                         productId = p.productId;
                         name = p.name;
-                        manufacturer = p.manufacturer;
+                        manufacturer = p.manifacturer;
                         manufacturingDate = p.manufacturingDate;
                         expirationDate = p.expirationDate;
                         if (p.holders != null) {
@@ -63,12 +70,12 @@ class _GetProductState extends State<GetProduct> {
                     });
                   }),
               SizedBox(height: size.height * 0.03),
-              Text("Product ID: " + productId),
-              Text("Name: " + name),
-              Text("Manufacturer: " + manufacturer),
-              Text("Manufacturing date: " + manufacturingDate),
-              Text("Expiration date: " + expirationDate),
-              Text("Holders: " + holders),
+              Text("Product ID: $productId"),
+              Text("Name:  $name"),
+              Text("Manufacturer: $manufacturer"),
+              Text("Manufacturing date: $manufacturingDate"),
+              Text("Expiration date: $expirationDate"),
+              Text("Holders: $holders"),
             ])));
   }
 }

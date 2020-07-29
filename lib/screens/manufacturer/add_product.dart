@@ -1,3 +1,4 @@
+import 'package:MedChain/components/body_container.dart';
 import 'package:flutter/material.dart';
 import 'package:MedChain/components/rounded_button.dart';
 import 'package:MedChain/components/rounded_input_field.dart';
@@ -70,72 +71,79 @@ class _AddProductState extends State<AddProduct> {
           backgroundColor: kPrimaryColor,
           title: Text('Add Product'),
         ),
-        body: Center(
-            child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-              SizedBox(height: size.height * 0.03),
-              RoundedInputField(
-                controller: nameController,
-                hintText: "Name",
-              ),
-              RoundedShowField(
-                controller: manifactureringController,
-                labelText: "Manifacturing Date",
-                suffixeIcon: IconButton(
-                  onPressed: () {
-                    manifacturingDate(context);
-                  },
-                  icon: Icon(
-                    Icons.calendar_today,
-                    color: kPrimaryColor,
+        body: BodyContainer(
+            size: size,
+            child: SingleChildScrollView(
+                child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                  SizedBox(height: size.height * 0.03),
+                  RoundedInputField(
+                    controller: nameController,
+                    hintText: "Name",
                   ),
-                ),
-              ),
-              RoundedShowField(
-                controller: expirationController,
-                labelText: "Expiration Date",
-                suffixeIcon: IconButton(
-                  onPressed: () {
-                    expirationDate(context);
-                  },
-                  icon: Icon(
-                    Icons.calendar_today,
-                    color: kPrimaryColor,
+                  RoundedShowField(
+                    controller: manifactureringController,
+                    labelText: "Manifacturing Date",
+                    suffixeIcon: IconButton(
+                      onPressed: () {
+                        manifacturingDate(context);
+                      },
+                      icon: Icon(
+                        Icons.calendar_today,
+                        color: kPrimaryColor,
+                      ),
+                    ),
                   ),
-                ),
-              ),
-              RoundedInputField(
-                controller: manufacturerController,
-                hintText: "Manufacturer",
-              ),
-              RoundedButton(
-                text: "Add product",
-                press: () async {
-                  Product p = await service.createProduct(
-                      user: widget.user,
-                      name: nameController.text,
-                      manufacturingDate: _manifactDate,
-                      expirationDate: _expirationDate,
-                      manufacturer: manufacturerController.text);
-                  if (p != null) {
-                    dispose();
-                    Scaffold.of(context).showSnackBar(
-                      SnackBar(
-                        content: Text('Product added'),
-                        backgroundColor: Colors.green,
+                  RoundedShowField(
+                    controller: expirationController,
+                    labelText: "Expiration Date",
+                    suffixeIcon: IconButton(
+                      onPressed: () {
+                        expirationDate(context);
+                      },
+                      icon: Icon(
+                        Icons.calendar_today,
+                        color: kPrimaryColor,
                       ),
-                    );
-                  } else {
-                    Scaffold.of(context).showSnackBar(
-                      SnackBar(
-                        content: Text('Product not added'),
-                        backgroundColor: Colors.red,
-                      ),
-                    );
-                  }
-                },
-              ),
-            ])));
+                    ),
+                  ),
+                  RoundedInputField(
+                    controller: manufacturerController,
+                    hintText: "Manufacturer",
+                  ),
+                  RoundedButton(
+                    text: "Add product",
+                    press: () async {
+                      Product p = await service.createProduct(
+                          user: widget.user,
+                          name: nameController.text,
+                          manufacturingDate: _manifactDate,
+                          expirationDate: _expirationDate,
+                          manufacturer: manufacturerController.text);
+                      if (p != null) {
+                        Scaffold.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text('Product added'),
+                            backgroundColor: Colors.green,
+                          ),
+                        );
+                        setState(() {
+                          manufacturerController.text = "";
+                          manifactureringController.text = "";
+                          expirationController.text = "";
+                          manufacturerController.text = "";
+                        });
+                      } else {
+                        Scaffold.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text('Product not added'),
+                            backgroundColor: Colors.red,
+                          ),
+                        );
+                      }
+                    },
+                  ),
+                ]))));
   }
 }

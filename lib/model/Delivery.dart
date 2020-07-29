@@ -27,33 +27,27 @@ class Delivery {
   bool sended;
   String deliver;
 
-
   factory Delivery.fromJson(Map<String, dynamic> json) => Delivery(
-    deliveryId: json["DeliveryID"],
-    productId: json["ProductID"],
-    timestamp: json["Timestamp"],
-    weight: json["Weight"],
-    dateOfDelivery: json["DateOfDelivery"],
-    served: json["Served"],
-    accepted: json["Accepted"],
-    sended: json["Sended"],
-    deliver: json["Deliver"],
-
-  );
+        deliveryId: json["DeliveryID"],
+        productId: json["ProductID"],
+        timestamp: json["Timestamp"],
+        weight: json["Weight"],
+        dateOfDelivery: json["DateOfDelivery"],
+        served: json["Served"],
+        accepted: json["Accepted"],
+        sended: json["Sended"],
+        deliver: json["Deliver"],
+      );
 
   Map<String, dynamic> toJson() => {
-    "DeliveryID": deliveryId,
-    "ProductID": productId,
-    "Timestamp": timestamp,
-    "Weight": weight,
-    "DateOfDelivery": dateOfDelivery,
-    "Served": served,
-    "Accepted": accepted,
-    "Sended": sended,
-    "Deliver": deliver,
-
-  };
-
-
-
+        "DeliveryID": deliveryId,
+        "ProductID": productId,
+        "Timestamp": timestamp,
+        "Weight": weight,
+        "DateOfDelivery": dateOfDelivery,
+        "Served": served,
+        "Accepted": accepted,
+        "Sended": sended,
+        "Deliver": deliver,
+      };
 }

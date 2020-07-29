@@ -10,7 +10,7 @@ class Product {
     this.manufacturingDate,
     this.expirationDate,
     this.name,
-    this.manufacturer,
+    this.manifacturer,
     this.holders,
   });
 
@@ -18,24 +18,24 @@ class Product {
   String manufacturingDate = " ";
   String expirationDate = " ";
   String name = " ";
-  String manufacturer = " ";
+  String manifacturer = " ";
   List<dynamic> holders;
 
   factory Product.fromJson(Map<String, dynamic> json) => Product(
-        productId: json["ProductID"],
-        manufacturingDate: json["ManufacturingDate"],
-        expirationDate: json["ExpirationDate"],
+        productId: json["Product_Id"],
+        manufacturingDate: json["Manufacturing_Date"],
+        expirationDate: json["Expiration_Date"],
         name: json["Name"],
-        manufacturer: json["Manufacturer"],
+        manifacturer: json["Manufacturer"],
         holders: List<dynamic>.from(json["Holders"].map((x) => x)),
       );
 
   Map<String, dynamic> toJson() => {
-        "ProductID": productId,
-        "ManufacturingDate": manufacturingDate,
-        "ExpirationDate": expirationDate,
+        "Product_Id": productId,
+        "Manufacturing_Date": manufacturingDate,
+        "Expiration_Date": expirationDate,
         "Name": name,
-        "Manufacturer": manufacturer,
+        "Manufacturer": manifacturer,
         "Holders": List<dynamic>.from(holders.map((x) => x)),
       };
 }

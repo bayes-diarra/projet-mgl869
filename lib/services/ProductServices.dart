@@ -12,19 +12,19 @@ class ProductService {
   String urlpost = "";
 
   // Create a product
-  Future<Product> createProduct(
-      {User u,
-      String name,
-      DateTime manufacturingDate,
-      DateTime expirationDate,
-      String manufacturer,
-      user}) async {
-    urlpost = link + "/CreateProduct/${u.username}/${u.organization}";
+  Future<Product> createProduct({
+    User user,
+    String name,
+    DateTime manufacturingDate,
+    DateTime expirationDate,
+    String manufacturer,
+  }) async {
+    urlpost = link + "/CreateProduct/${user.username}/${user.organization}";
     final response = await http.post(urlpost, body: {
       "ManufacturingDate": manufacturingDate.toIso8601String(),
       "ExpirationDate": expirationDate.toIso8601String(),
       "Name": name,
-      "Manufacturer": manufacturer,
+      "Manifacturer": manufacturer,
     });
 
     if (response.statusCode == 201) {
@@ -56,20 +56,21 @@ class ProductService {
 
   // get product
   Future<Product> getProduct({User user, String productId}) async {
-    urlget = link + "/GetProduct/$productId/$user.username/$user.organization";
+    urlget =
+        link + "/GetProduct/$productId/${user.username}/${user.organization}";
     var response = await http.get(urlget);
     Product product = Product();
     if (response.statusCode == 200) {
       var jsonResponse = convert.jsonDecode(response.body);
       product = Product.fromJson(jsonResponse);
-      print('productId from request: ' + product.productId);
+      print('productId from request:   ${product.productId}');
     } else {
       print('Request failed with status: ${response.statusCode}.');
     }
     return product;
   }
 
-  Future<Product> getproduct(String productId) async {
+  /*Future<Product> getproduct(String productId) async {
     String urlget1 = "https://next.json-generator.com/api/json/get/NyIThaykK";
     var response = await http.get(urlget1);
     Product product = Product();
@@ -84,5 +85,5 @@ class ProductService {
       }
     }
     return product;
-  }
+  }*/
 }

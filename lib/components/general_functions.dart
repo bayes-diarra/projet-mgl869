@@ -26,10 +26,10 @@ class GeneralFuntions {
               onPressed: cancelPressed != null
                   ? cancelPressed
                   : () {
-                      Navigator.pop(context);
+                      Navigator.pop(context, false);
                     },
             ),
-            FlatButton(child: Text('Ok'), onPressed: okPressed),
+            FlatButton(child: Text('Approve'), onPressed: okPressed),
           ],
         );
       },

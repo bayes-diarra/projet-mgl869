@@ -55,76 +55,77 @@ class _SendDeliveryRequestState extends State<SendDeliveryRequest> {
           backgroundColor: kPrimaryColor,
         ),
         body: BodyContainer(
+            size: size,
             child: SingleChildScrollView(
                 child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
-              Image(
-                  width: size.height * 0.250,
-                  image: NetworkImage(
-                      "https://media.istockphoto.com/vectors/qr-code-scan-phone-icon-in-comic-style-scanner-in-smartphone-vector-vector-id1166145556")),
-              RoundedButton(
-                  text: "Scan product",
-                  color: Colors.white,
-                  textColor: Colors.black,
-                  press: () async {
-                    String codeSanner = await BarcodeScanner.scan();
+                  Image(
+                      width: size.height * 0.250,
+                      image: NetworkImage(
+                          "https://media.istockphoto.com/vectors/qr-code-scan-phone-icon-in-comic-style-scanner-in-smartphone-vector-vector-id1166145556")),
+                  RoundedButton(
+                      text: "Scan product",
+                      color: Colors.white,
+                      textColor: Colors.black,
+                      press: () async {
+                        String codeSanner = await BarcodeScanner.scan();
 
-                    setState(() {
-                      if (codeSanner != null) {
-                        productIdController.text = codeSanner;
-                      }
-                    });
-                  }),
-              SizedBox(height: size.height * 0.03),
-              RoundedShowField(
-                controller: productIdController,
-                enable: false,
-                labelText: "productId",
-              ),
-              RoundedInputField(
-                controller: weightController,
-                hintText: "weight",
-              ),
-              RoundedShowField(
-                controller: deliveryDateController,
-                labelText: "Delivery Date",
-                suffixeIcon: IconButton(
-                  onPressed: () {
-                    deliveryDate(context);
-                  },
-                  icon: Icon(
-                    Icons.calendar_today,
-                    color: kPrimaryColor,
+                        setState(() {
+                          if (codeSanner != null) {
+                            productIdController.text = codeSanner;
+                          }
+                        });
+                      }),
+                  SizedBox(height: size.height * 0.03),
+                  RoundedShowField(
+                    controller: productIdController,
+                    enable: false,
+                    labelText: "productId",
                   ),
-                ),
-              ),
-              RoundedButton(
-                text: "Add product",
-                press: () async {
-                  Delivery d = await service.sendDeliveryRequest(
-                      user: widget.user,
-                      productId: productIdController.text,
-                      weight: weightController.text,
-                      dateOfDelivery: _deliveryDate);
-                  if (d != null) {
-                    dispose();
-                    Scaffold.of(context).showSnackBar(
-                      SnackBar(
-                        content: Text('Request sent'),
-                        backgroundColor: Colors.green,
+                  RoundedInputField(
+                    controller: weightController,
+                    hintText: "weight",
+                  ),
+                  RoundedShowField(
+                    controller: deliveryDateController,
+                    labelText: "Delivery Date",
+                    suffixeIcon: IconButton(
+                      onPressed: () {
+                        deliveryDate(context);
+                      },
+                      icon: Icon(
+                        Icons.calendar_today,
+                        color: kPrimaryColor,
                       ),
-                    );
-                  } else {
-                    Scaffold.of(context).showSnackBar(
-                      SnackBar(
-                        content: Text('Request not sent yet'),
-                        backgroundColor: Colors.red,
-                      ),
-                    );
-                  }
-                },
-              ),
-            ]))));
+                    ),
+                  ),
+                  RoundedButton(
+                    text: "Add product",
+                    press: () async {
+                      Delivery d = await service.sendDeliveryRequest(
+                          user: widget.user,
+                          productId: productIdController.text,
+                          weight: weightController.text,
+                          dateOfDelivery: _deliveryDate);
+                      if (d != null) {
+                        dispose();
+                        Scaffold.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text('Request sent'),
+                            backgroundColor: Colors.green,
+                          ),
+                        );
+                      } else {
+                        Scaffold.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text('Request not sent yet'),
+                            backgroundColor: Colors.red,
+                          ),
+                        );
+                      }
+                    },
+                  ),
+                ]))));
   }
 }

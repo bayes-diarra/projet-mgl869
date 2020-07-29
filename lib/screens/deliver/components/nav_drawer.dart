@@ -1,7 +1,10 @@
+import 'dart:io';
+
 import 'package:MedChain/components/general_functions.dart';
 import 'package:MedChain/model/User.dart';
 import 'package:MedChain/screens/common/get_product.dart';
 import 'package:MedChain/screens/deliver/available_deliveries.dart';
+import 'package:MedChain/screens/my_app.dart';
 import 'package:flutter/material.dart';
 
 class NavDrawer extends StatelessWidget {
@@ -22,7 +25,9 @@ class NavDrawer extends StatelessWidget {
             accountEmail: Text(orga == null ? "" : orga),
             currentAccountPicture: CircleAvatar(
                 backgroundColor: Colors.yellow[700],
-                child: Text(usrname == null ? "" : usrname.substring(0))),
+                child: Text(usrname == null
+                    ? ""
+                    : usrname.substring(0, 1).toUpperCase())),
           ),
           ListTile(
             leading: Icon(Icons.check_circle_outline),
@@ -98,7 +103,13 @@ class NavDrawer extends StatelessWidget {
                 title: Text("Log out"),
                 text: Text("Do you really want to log out?"),
                 okPressed: () {
-                  Navigator.pushReplacementNamed(context, "/");
+                  //sleep(const Duration(microseconds: 50));
+                  Navigator.pop(context, false);
+
+                  Navigator.of(context)
+                      .push(MaterialPageRoute(builder: (context) {
+                    return MyApp();
+                  }));
                 },
               );
             },

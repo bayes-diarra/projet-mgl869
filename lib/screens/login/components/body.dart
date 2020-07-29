@@ -1,3 +1,4 @@
+import 'package:MedChain/model/Role.dart';
 import 'package:flutter/material.dart';
 //import 'package:flutter_svg/svg.dart';
 import 'package:MedChain/components/rounded_password_field.dart';
@@ -28,14 +29,42 @@ class _BodyState extends State<Body> {
 
   final TextEditingController usernameController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
-  final TextEditingController organizationController = TextEditingController();
+
+  List<Role> roles = Role.getRoles();
+  List<DropdownMenuItem<Role>> dropdownMenuItems;
+  Role selectedRole;
+
+  @override
+  void initState() {
+    dropdownMenuItems = buildDropdownMenuItems(roles);
+    selectedRole = dropdownMenuItems[0].value;
+    super.initState();
+  }
+
+  List<DropdownMenuItem<Role>> buildDropdownMenuItems(List roles) {
+    List<DropdownMenuItem<Role>> items = List();
+    for (Role role in roles) {
+      items.add(
+        DropdownMenuItem(
+          value: role,
+          child: Text(role.name),
+        ),
+      );
+    }
+    return items;
+  }
+
+  onChangeDropdownItem(Role _selectedRole) {
+    setState(() {
+      selectedRole = _selectedRole;
+    });
+  }
 
   @override
   void dispose() {
     // Clean up the controller when the widget is disposed.
     usernameController.dispose();
     passwordController.dispose();
-    organizationController.dispose();
     super.dispose();
   }
 
@@ -79,21 +108,22 @@ class _BodyState extends State<Body> {
                     });
                 },
                 icon: Icon(
-                  Icons.visibility,
+                  _obscurText == true ? Icons.visibility : Icons.visibility_off,
                   color: kPrimaryColor,
                 ),
               ),
             ),
-            RoundedInputField(
-              controller: organizationController,
-              hintText: "Organization",
+            DropdownButton(
+              value: selectedRole,
+              items: dropdownMenuItems,
+              onChanged: onChangeDropdownItem,
             ),
             RoundedButton(
               text: "LOGIN",
               press: () async {
                 final String username = usernameController.text;
                 final String password = passwordController.text;
-                final String organization = organizationController.text;
+                final String organization = selectedRole.value;
 
                 final User user = await _service.signInUser(
                     username: username,

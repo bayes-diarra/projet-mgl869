@@ -1,20 +1,106 @@
-Card(
-                  child: Column(
-                children: <Widget>[
-                  Text("Product ID: " + product.productId == null
-                      ? ""
-                      : product.productId),
-                      Text("Name: " + product.name == null ? "" : product.name),
-                  Text("Manufacturer: " + product.manufacturer == null
-                      ? ""
-                      : product.manufacturer),
-                  Text(
-                      "Manufacturing date: " + product.manufacturingDate == null
-                          ? ""
-                          : product.manufacturingDate),
-                  Text("Expiration date: " + product.expirationDate == null
-                      ? ""
-                      : product.expirationDate),
-                  Text("Holders: " + holders),
-                ],
-              ))
+import 'dart:io';
+
+import 'package:flutter/cupertino.dart';
+import 'package:MedChain/model/User.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert' as convert;
+
+import 'package:MedChain/utility/links.dart';
+
+class UserService {
+  //final String urlget = "https://next.json-generator.com/api/json/get/EkLrmfeyF";
+
+  String urlpost = "";
+  String urlget = "";
+  bool isLogin = false;
+  String message;
+  String token;
+  bool isRegister = false;
+  User user;
+
+  Future<User> registerUser(
+      {String username, String password, String organization}) async {
+    isRegister = await Future.delayed(Duration(seconds: 2), () {
+      createUser(
+          username: username, password: password, organization: organization);
+    });
+    //await Future.delayed(Duration(seconds: 2));
+
+    if (isRegister == true) {
+      isRegister = true;
+      message = " SignUp : Success!! ";
+      print("SignUp: Success!!");
+      sleep(const Duration(seconds: 2));
+      return await signInUser(
+          username: username, password: password, organization: organization);
+    } else {
+      message = " SignUp : Error ";
+      isRegister = false;
+      print(" SignUp : Error ");
+    }
+    return null;
+  }
+
+  void logOut() {
+    isLogin = false;
+  }
+
+  //
+  Future<User> signInUser(
+      {@required String username,
+      @required String password,
+      @required String organization}) async {
+    User user = await getUser(
+        username: username, password: password, organization: organization);
+    if (user != null) {
+      isLogin = true;
+      message = " SignIn : Success!! ";
+    } else {
+      isLogin = false;
+      message = " SignIn : Error ";
+    }
+
+    return user;
+  }
+
+  // create a user
+  Future<bool> createUser(
+      {@required String username,
+      @required String password,
+      @required String organization}) async {
+    urlpost = link + "/RegisterUser/$username-$password-$organization";
+    final response = await http.get(urlpost);
+    await Future.delayed(Duration(seconds: 2));
+    if (response.statusCode == 201) {
+      final String responseString = response.body;
+
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  Future<User> getUser(
+      {String username, String password, String organization}) async {
+    User user;
+    urlget = link + "/SignInUser/$username-$password-$organization";
+    var response = await http.get(urlget);
+
+    if (response.statusCode == 200) {
+      var jsonResponse = convert.jsonDecode(response.body);
+      for (var u in jsonResponse) {
+        if (username == u['Username'] &&
+            password == u['Password'] &&
+            organization == u["Organization"]) {
+          user = User.fromJson(u);
+          print(user.username + " " + user.password + " " + user.organization);
+          break;
+        }
+      }
+    } else {
+      print('Request failed with status: ${response.statusCode}.');
+    }
+    await Future.delayed(Duration(seconds: 1));
+    return user;
+  }
+}

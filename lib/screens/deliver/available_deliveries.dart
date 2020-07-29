@@ -31,7 +31,7 @@ class _AvailableDeliveriesState extends State<AvailableDeliveries> {
       ),
       body: Container(
         child: FutureBuilder(
-            future: getDeliveries(),
+            future: service.queryDeliveryRequest(widget.user),
             builder: (BuildContext context, AsyncSnapshot snapshot) {
               if (snapshot.data == null) {
                 return Container(child: Center(child: Text("Loading...")));
@@ -43,7 +43,7 @@ class _AvailableDeliveriesState extends State<AvailableDeliveries> {
                       return Card(
                           child: ListTile(
                         title: Text(
-                            "DeliveryId: " + snapshot.data[index].deliveryId),
+                            "DeliveryId:" + snapshot.data[index].deliveryId),
                         subtitle: Text("Date of delivery: " +
                             snapshot.data[index].dateOfDelivery),
                         trailing: widget.page == ""

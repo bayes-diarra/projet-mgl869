@@ -1,3 +1,4 @@
+import 'package:MedChain/model/Role.dart';
 import 'package:flutter/material.dart';
 //import 'package:flutter_svg/svg.dart';
 import 'package:MedChain/model/User.dart';
@@ -23,12 +24,42 @@ class Body extends StatefulWidget {
 
 class _BodyState extends State<Body> {
   UserService _service = new UserService();
-  bool _obscurText = true;
+  bool _obscurText1 = true;
+  bool _obscurText2 = true;
 
   final TextEditingController usernameController = TextEditingController();
   final TextEditingController password1Controller = TextEditingController();
   final TextEditingController password2Controller = TextEditingController();
-  final TextEditingController organizationController = TextEditingController();
+
+  List<Role> roles = Role.getRoles();
+  List<DropdownMenuItem<Role>> dropdownMenuItems;
+  Role selectedRole;
+
+  @override
+  void initState() {
+    dropdownMenuItems = buildDropdownMenuItems(roles);
+    selectedRole = dropdownMenuItems[0].value;
+    super.initState();
+  }
+
+  List<DropdownMenuItem<Role>> buildDropdownMenuItems(List roles) {
+    List<DropdownMenuItem<Role>> items = List();
+    for (Role role in roles) {
+      items.add(
+        DropdownMenuItem(
+          value: role,
+          child: Text(role.name),
+        ),
+      );
+    }
+    return items;
+  }
+
+  onChangeDropdownItem(Role _selectedRole) {
+    setState(() {
+      selectedRole = _selectedRole;
+    });
+  }
 
   @override
   void dispose() {
@@ -36,7 +67,6 @@ class _BodyState extends State<Body> {
     usernameController.dispose();
     password1Controller.dispose();
     password2Controller.dispose();
-    organizationController.dispose();
     super.dispose();
   }
 
@@ -65,20 +95,22 @@ class _BodyState extends State<Body> {
             RoundedPasswordField(
               controller: password1Controller,
               hintText: "Password",
-              obscureText: _obscurText,
+              obscureText: _obscurText1,
               suffixeIcon: IconButton(
                 onPressed: () {
-                  if (_obscurText == true) {
+                  if (_obscurText1 == true) {
                     setState(() {
-                      _obscurText = false;
+                      _obscurText1 = false;
                     });
                   } else
                     setState(() {
-                      _obscurText = true;
+                      _obscurText1 = true;
                     });
                 },
                 icon: Icon(
-                  Icons.visibility,
+                  _obscurText1 == true
+                      ? Icons.visibility
+                      : Icons.visibility_off,
                   color: kPrimaryColor,
                 ),
               ),
@@ -86,34 +118,37 @@ class _BodyState extends State<Body> {
             RoundedPasswordField(
               controller: password2Controller,
               hintText: "Password",
-              obscureText: _obscurText,
+              obscureText: _obscurText2,
               suffixeIcon: IconButton(
                 onPressed: () {
-                  if (_obscurText == true) {
+                  if (_obscurText2 == true) {
                     setState(() {
-                      _obscurText = false;
+                      _obscurText2 = false;
                     });
                   } else
                     setState(() {
-                      _obscurText = true;
+                      _obscurText2 = true;
                     });
                 },
                 icon: Icon(
-                  Icons.visibility,
+                  _obscurText2 == true
+                      ? Icons.visibility
+                      : Icons.visibility_off,
                   color: kPrimaryColor,
                 ),
               ),
             ),
-            RoundedInputField(
-              controller: organizationController,
-              hintText: "Organization",
+            DropdownButton(
+              value: selectedRole,
+              items: dropdownMenuItems,
+              onChanged: onChangeDropdownItem,
             ),
             RoundedButton(
                 text: "REGISTER",
                 press: () async {
                   final String username = usernameController.text;
                   final String password = password1Controller.text;
-                  final String organization = organizationController.text;
+                  final String organization = selectedRole.value;
 
                   User user;
 
