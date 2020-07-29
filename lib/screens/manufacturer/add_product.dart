@@ -54,16 +54,6 @@ class _AddProductState extends State<AddProduct> {
   }
 
   @override
-  void dispose() {
-    // Clean up the controller when the widget is disposed.
-    manufacturerController.dispose();
-    manifactureringController.dispose();
-    expirationController.dispose();
-    manufacturerController.dispose();
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(

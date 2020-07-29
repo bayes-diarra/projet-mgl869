@@ -23,7 +23,7 @@ import 'screens/wholesaler/wholesalerHome.dart';
 
 void main() => runApp(MaterialApp(
       debugShowCheckedModeBanner: false,
-      initialRoute: '/manufacturer',
+      initialRoute: '/',
       routes: {
         //'/': (context) => Loading(),
         //'/': (context) => WelcomeScreen(),

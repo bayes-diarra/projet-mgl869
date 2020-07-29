@@ -38,15 +38,6 @@ class _SendDeliveryRequestState extends State<SendDeliveryRequest> {
   }
 
   @override
-  void dispose() {
-    // Clean up the controller when the widget is disposed.
-    weightController.dispose();
-    deliveryDateController.dispose();
-    productIdController.dispose();
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
@@ -109,7 +100,11 @@ class _SendDeliveryRequestState extends State<SendDeliveryRequest> {
                           weight: weightController.text,
                           dateOfDelivery: _deliveryDate);
                       if (d != null) {
-                        dispose();
+                        setState(() {
+                          productIdController.text = "";
+                          weightController.text = "";
+                          deliveryDateController.text = "";
+                        });
                         Scaffold.of(context).showSnackBar(
                           SnackBar(
                             content: Text('Request sent'),

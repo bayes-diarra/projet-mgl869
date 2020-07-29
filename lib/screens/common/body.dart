@@ -17,8 +17,12 @@ class Body extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Text(
-              "Hi " + user.username == null ? "" : user.username,
-              style: TextStyle(fontWeight: FontWeight.bold),
+              user.username == null ? "" : 'Welcome ' + user.username,
+              style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  color: Colors.purple[900],
+                  fontFamily: 'OpenSans',
+                  fontSize: 20),
             ),
             SizedBox(height: size.height * 0.05),
             Image.asset(
