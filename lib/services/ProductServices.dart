@@ -26,12 +26,19 @@ class ProductService {
       "Name": name,
       "Manifacturer": manufacturer,
     });
-
+    Product product = Product();
     if (response.statusCode == 201) {
-      final String responseString = response.body;
-
-      return productFromJson(responseString);
+      var jsonResponse = convert.jsonDecode(response.body);
+      product.productId = jsonResponse["Product_Id"];
+      product.name = jsonResponse["Name"];
+      product.holders = jsonResponse["Holders"];
+      product.expirationDate = jsonResponse["Expiration_Date"];
+      product.manufacturingDate = jsonResponse["Manufacturing_Date"];
+      product.manifacturer = jsonResponse["Manufacturer"];
+      print('productId from request: ${product.productId}');
+      return product;
     } else {
+      print('No product returned');
       return null;
     }
   }
@@ -62,7 +69,12 @@ class ProductService {
     Product product = Product();
     if (response.statusCode == 200) {
       var jsonResponse = convert.jsonDecode(response.body);
-      product = Product.fromJson(jsonResponse);
+      product.productId = jsonResponse["Product_Id"];
+      product.name = jsonResponse["Name"];
+      product.holders = jsonResponse["Holders"];
+      product.expirationDate = jsonResponse["Expiration_Date"];
+      product.manufacturingDate = jsonResponse["Manufacturing_Date"];
+      product.manifacturer = jsonResponse["Manufacturer"];
       print('productId from request:   ${product.productId}');
     } else {
       print('Request failed with status: ${response.statusCode}.');

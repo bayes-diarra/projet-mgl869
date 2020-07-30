@@ -20,17 +20,26 @@ class DeliveryService {
     urlpost =
         link + "/SendDeliveryRequest/${user.username}/${user.organization}";
 
+    Delivery delivery = Delivery();
     final response = await http.post(urlpost, body: {
       "ProductID": productId,
       "Weight": weight,
       "DateOfDelevery": dateOfDelivery.toIso8601String(),
     });
-
     if (response.statusCode == 201) {
-      final String responseString = response.body;
-
-      return deliveryFromJson(responseString);
+      var jsonResponse = convert.jsonDecode(response.body);
+      delivery.deliveryId = "";
+      delivery.productId = jsonResponse["Product_Id"];
+      delivery.weight = jsonResponse["weight"];
+      delivery.dateOfDelivery = jsonResponse["DateOfdelivery"];
+      delivery.served = jsonResponse["Served"];
+      delivery.sended = jsonResponse["Sended"];
+      delivery.accepted = jsonResponse["Accepted"];
+      delivery.deliver = jsonResponse["Deliver"];
+      print('productId from request: ${delivery.productId}');
+      return delivery;
     } else {
+      print('No delivery request returned');
       return null;
     }
   }
@@ -38,15 +47,24 @@ class DeliveryService {
   //sendDelivery
   Future<Delivery> sendDelivery({User user, String delid}) async {
     urlpost = link + "/SendDelivery/${user.username}/${user.organization}";
-
+    Delivery delivery = Delivery();
     final response = await http.post(urlpost, body: {
       "DELID": delid,
     });
     if (response.statusCode == 201) {
-      final String responseString = response.body;
-
-      return deliveryFromJson(responseString);
+      var jsonResponse = convert.jsonDecode(response.body);
+      delivery.deliveryId = "";
+      delivery.productId = jsonResponse["Product_Id"];
+      delivery.weight = jsonResponse["weight"];
+      delivery.dateOfDelivery = jsonResponse["DateOfdelivery"];
+      delivery.served = jsonResponse["Served"];
+      delivery.sended = jsonResponse["Sended"];
+      delivery.accepted = jsonResponse["Accepted"];
+      delivery.deliver = jsonResponse["Deliver"];
+      print('productId from request: ${delivery.productId}');
+      return delivery;
     } else {
+      print('No delivery returned');
       return null;
     }
   }
@@ -54,14 +72,23 @@ class DeliveryService {
   // ServeDeliver
   Future<Delivery> serveDelivery({User user, String delid}) async {
     urlpost = link + "/ServeDelivery/${user.username}/${user.organization}";
-
+    Delivery delivery = Delivery();
     final response = await http
         .post(urlpost, body: {"DELID": delid, "Deliver": user.username});
     if (response.statusCode == 201) {
-      final String responseString = response.body;
-
-      return deliveryFromJson(responseString);
+      var jsonResponse = convert.jsonDecode(response.body);
+      delivery.deliveryId = "";
+      delivery.productId = jsonResponse["Product_Id"];
+      delivery.weight = jsonResponse["weight"];
+      delivery.dateOfDelivery = jsonResponse["DateOfdelivery"];
+      delivery.served = jsonResponse["Served"];
+      delivery.sended = jsonResponse["Sended"];
+      delivery.accepted = jsonResponse["Accepted"];
+      delivery.deliver = jsonResponse["Deliver"];
+      print('productId from request: ${delivery.productId}');
+      return delivery;
     } else {
+      print('No delivery returned');
       return null;
     }
   }
@@ -69,11 +96,23 @@ class DeliveryService {
   Future<Delivery> acceptDelivery({User user, String delid}) async {
     urlpost = link + "/AcceptDelivery/${user.username}/${user.organization}";
 
+    Delivery delivery = Delivery();
     final response = await http.post(urlpost, body: {"DELID": delid});
+
     if (response.statusCode == 201) {
-      final String responseString = response.body;
-      return deliveryFromJson(responseString);
+      var jsonResponse = convert.jsonDecode(response.body);
+      delivery.deliveryId = "";
+      delivery.productId = jsonResponse["Product_Id"];
+      delivery.weight = jsonResponse["weight"];
+      delivery.dateOfDelivery = jsonResponse["DateOfdelivery"];
+      delivery.served = jsonResponse["Served"];
+      delivery.sended = jsonResponse["Sended"];
+      delivery.accepted = jsonResponse["Accepted"];
+      delivery.deliver = jsonResponse["Deliver"];
+      print('productId from request: ${delivery.productId}');
+      return delivery;
     } else {
+      print('No delivery returned');
       return null;
     }
   }

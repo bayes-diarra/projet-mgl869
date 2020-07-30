@@ -30,8 +30,9 @@ class UserService {
       isRegister = false;
     }
     sleep(const Duration(seconds: 2));
-    return await signInUser(
-        username: username, password: password, organization: organization);
+
+    return await  signInUser(
+          username: username, password: password, organization: organization);
   }
 
   void logOut() {
