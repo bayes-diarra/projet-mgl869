@@ -125,70 +125,80 @@ class _BodyState extends State<Body> {
                 final String password = passwordController.text;
                 final String organization = selectedRole.value;
 
-                final User user = await _service.signInUser(
-                    username: username,
-                    password: password,
-                    organization: organization);
+                if (usernameController.text != null &&
+                    passwordController.text != null &&
+                    organization != null) {
+                  final User user = await _service.signInUser(
+                      username: username,
+                      password: password,
+                      organization: organization);
+                  if (user != null && _service.isLogin == true) {
+                    if (user.organization == "Org4MSP") {
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) {
+                            return PatientHome(user: user);
+                          },
+                        ),
+                      );
+                    }
 
-                if (user != null && _service.isLogin) {
-                  if (user.organization == "Org4MSP") {
-                    Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) {
-                          return PatientHome(user: user);
-                        },
+                    if (user.organization == "Org1MSP") {
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) {
+                            return ManufacturerHome(user: user);
+                          },
+                        ),
+                      );
+                    }
+                    if (user.organization == "Org2MSP") {
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) {
+                            return DeliverHome(user: user);
+                          },
+                        ),
+                      );
+                    }
+                    if (user.organization == "Org3MSP") {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) {
+                            return WholesalerHome(user: user);
+                          },
+                        ),
+                      );
+                    }
+                    if (user.organization == "Org5MSP") {
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) {
+                            return HealthworkerHome(user: user);
+                          },
+                        ),
+                      );
+                    } else {
+                      Scaffold.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text('${_service.message}'),
+                          backgroundColor: Colors.red,
+                        ),
+                      );
+                    }
+                  } else {
+                    Scaffold.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text('Check the input fields '),
+                        backgroundColor: Colors.red,
                       ),
                     );
                   }
-
-                  if (user.organization == "Org1MSP") {
-                    Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) {
-                          return ManufacturerHome(user: user);
-                        },
-                      ),
-                    );
-                  }
-                  if (user.organization == "Org2MSP") {
-                    Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) {
-                          return DeliverHome(user: user);
-                        },
-                      ),
-                    );
-                  }
-                  if (user.organization == "Org3MSP") {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) {
-                          return WholesalerHome(user: user);
-                        },
-                      ),
-                    );
-                  }
-                  if (user.organization == "Org5MSP") {
-                    Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) {
-                          return HealthworkerHome(user: user);
-                        },
-                      ),
-                    );
-                  }
-                } else {
-                  Scaffold.of(context).showSnackBar(
-                    SnackBar(
-                      content: Text('${_service.message}'),
-                      backgroundColor: Colors.red,
-                    ),
-                  );
                 }
               },
             ),

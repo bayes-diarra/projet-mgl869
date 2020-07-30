@@ -17,7 +17,7 @@ class Body extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Text(
-              user.username == null ? "" : 'Welcome ' + user.username,
+              user.username == null ? "" : 'Hi ' + user.username + ' !',
               style: TextStyle(
                   fontWeight: FontWeight.bold,
                   color: Colors.purple[900],

@@ -28,39 +28,40 @@ class _SendDeliveryState extends State<SendDelivery> {
           title: Text('Send Delivery'),
           backgroundColor: kPrimaryColor,
         ),
-        body: Center(
-            child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-              SizedBox(height: size.height * 0.03),
-              RoundedShowField(
-                controller: idController,
-                labelText: "Delivery Id",
-              ),
-              SizedBox(height: size.height * 0.03),
-              RoundedButton(
-                  text: "Confirm",
-                  press: () async {
-                    Delivery d = await service.sendDelivery(
-                      user: widget.user,
-                      delid: idController.text,
-                    );
-                    if (d != null) {
-                      Scaffold.of(context).showSnackBar(
-                        SnackBar(
-                          content: Text('delivery sent'),
-                          backgroundColor: Colors.green,
-                        ),
-                      );
-                    } else {
-                      Scaffold.of(context).showSnackBar(
-                        SnackBar(
-                          content: Text('Delivery not sent yet'),
-                          backgroundColor: Colors.red,
-                        ),
-                      );
-                    }
-                  })
-            ])));
+        body: Builder(
+            builder: (context) => Center(
+                    child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                      SizedBox(height: size.height * 0.03),
+                      RoundedShowField(
+                        controller: idController,
+                        labelText: "Delivery Id",
+                      ),
+                      SizedBox(height: size.height * 0.03),
+                      RoundedButton(
+                          text: "Confirm",
+                          press: () async {
+                            Delivery d = await service.sendDelivery(
+                              user: widget.user,
+                              delid: idController.text,
+                            );
+                            if (d.sended == true) {
+                              Scaffold.of(context).showSnackBar(
+                                SnackBar(
+                                  content: Text('delivery sent'),
+                                  backgroundColor: Colors.green,
+                                ),
+                              );
+                            } else {
+                              Scaffold.of(context).showSnackBar(
+                                SnackBar(
+                                  content: Text('Delivery not sent yet'),
+                                  backgroundColor: Colors.red,
+                                ),
+                              );
+                            }
+                          })
+                    ]))));
   }
 }

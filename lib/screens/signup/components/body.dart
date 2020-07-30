@@ -152,8 +152,8 @@ class _BodyState extends State<Body> {
 
                   User user;
 
-                  if (username != null &&
-                      password != null &&
+                  if (usernameController.text != null &&
+                      password1Controller.text != null &&
                       organization != null &&
                       password1Controller.text == password2Controller.text) {
                     user = await _service.registerUser(

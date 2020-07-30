@@ -26,37 +26,38 @@ class _ServeDeliveryState extends State<ServeDelivery> {
         appBar: AppBar(
           title: Text('Serve Delivery'),
         ),
-        body: Center(
-            child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-              SizedBox(height: size.height * 0.03),
-              RoundedShowField(
-                controller: idController,
-                labelText: "Delivery Id",
-              ),
-              SizedBox(height: size.height * 0.03),
-              RoundedButton(
-                  text: "Confirm",
-                  press: () async {
-                    Delivery d = await service.serveDelivery(
-                        user: widget.user, delid: idController.text);
-                    if (d != null) {
-                      Scaffold.of(context).showSnackBar(
-                        SnackBar(
-                          content: Text('delivery served'),
-                          backgroundColor: Colors.green,
-                        ),
-                      );
-                    } else {
-                      Scaffold.of(context).showSnackBar(
-                        SnackBar(
-                          content: Text('Delivery not served yet'),
-                          backgroundColor: Colors.red,
-                        ),
-                      );
-                    }
-                  })
-            ])));
+        body: Builder(
+            builder: (context) => Center(
+                    child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                      SizedBox(height: size.height * 0.03),
+                      RoundedShowField(
+                        controller: idController,
+                        labelText: "Delivery Id",
+                      ),
+                      SizedBox(height: size.height * 0.03),
+                      RoundedButton(
+                          text: "Confirm",
+                          press: () async {
+                            Delivery d = await service.serveDelivery(
+                                user: widget.user, delid: idController.text);
+                            if (d.served == true) {
+                              Scaffold.of(context).showSnackBar(
+                                SnackBar(
+                                  content: Text('delivery served'),
+                                  backgroundColor: Colors.green,
+                                ),
+                              );
+                            } else {
+                              Scaffold.of(context).showSnackBar(
+                                SnackBar(
+                                  content: Text('Delivery not served yet'),
+                                  backgroundColor: Colors.red,
+                                ),
+                              );
+                            }
+                          })
+                    ]))));
   }
 }

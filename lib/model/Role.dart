@@ -6,7 +6,7 @@ class Role {
 
   static List<Role> getRoles() {
     return <Role>[
-      Role(name: 'Select an organization', value: ''),
+      Role(name: 'Select an organization', value: null),
       Role(name: 'Manufacturer organization', value: 'Org1MSP'),
       Role(name: 'Deliver organization', value: 'Org2MSP'),
       Role(name: 'Wholesaler organization', value: 'Org3MSP'),

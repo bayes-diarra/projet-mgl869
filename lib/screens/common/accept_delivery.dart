@@ -28,39 +28,40 @@ class _AcceptDeliveryState extends State<AcceptDelivery> {
           backgroundColor: kPrimaryColor,
           title: Text('Accept Delivery'),
         ),
-        body: Center(
-            child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-              SizedBox(height: size.height * 0.03),
-              RoundedShowField(
-                controller: idController,
-                labelText: "Delivery Id",
-              ),
-              SizedBox(height: size.height * 0.03),
-              RoundedButton(
-                  text: "Confirm",
-                  press: () async {
-                    Delivery d = await service.acceptDelivery(
-                      user: widget.user,
-                      delid: widget.delivery.deliveryId,
-                    );
-                    if (d != null) {
-                      Scaffold.of(context).showSnackBar(
-                        SnackBar(
-                          content: Text('delivery accepted'),
-                          backgroundColor: Colors.green,
-                        ),
-                      );
-                    } else {
-                      Scaffold.of(context).showSnackBar(
-                        SnackBar(
-                          content: Text('Delivery not accepted!'),
-                          backgroundColor: Colors.red,
-                        ),
-                      );
-                    }
-                  })
-            ])));
+        body: Builder(
+            builder: (context) => Center(
+                    child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                      SizedBox(height: size.height * 0.03),
+                      RoundedShowField(
+                        controller: idController,
+                        labelText: "Delivery Id",
+                      ),
+                      SizedBox(height: size.height * 0.03),
+                      RoundedButton(
+                          text: "Confirm",
+                          press: () async {
+                            Delivery d = await service.acceptDelivery(
+                              user: widget.user,
+                              delid: widget.delivery.deliveryId,
+                            );
+                            if (d.accepted == true) {
+                              Scaffold.of(context).showSnackBar(
+                                SnackBar(
+                                  content: Text('delivery accepted'),
+                                  backgroundColor: Colors.green,
+                                ),
+                              );
+                            } else {
+                              Scaffold.of(context).showSnackBar(
+                                SnackBar(
+                                  content: Text('Delivery not accepted!'),
+                                  backgroundColor: Colors.red,
+                                ),
+                              );
+                            }
+                          })
+                    ]))));
   }
 }

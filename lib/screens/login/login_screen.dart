@@ -5,7 +5,8 @@ class LoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Body(),
-    );
+        body: Builder(
+      builder: (context) => Body(),
+    ));
   }
 }
