@@ -72,7 +72,7 @@ class _SendDeliveryRequestState extends State<SendDeliveryRequest> {
                       SizedBox(height: size.height * 0.03),
                       RoundedShowField(
                         controller: productIdController,
-                        enable: false,
+                        enable: true,
                         labelText: "productId",
                       ),
                       RoundedInputField(
@@ -93,7 +93,7 @@ class _SendDeliveryRequestState extends State<SendDeliveryRequest> {
                         ),
                       ),
                       RoundedButton(
-                        text: "Add product",
+                        text: "Send request",
                         press: () async {
                           Delivery d = await service.sendDeliveryRequest(
                               user: widget.user,

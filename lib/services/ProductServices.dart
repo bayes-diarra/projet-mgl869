@@ -27,20 +27,20 @@ class ProductService {
       "Manifacturer": manufacturer,
     });
     Product product = Product();
-    if (response.statusCode == 201) {
-      var jsonResponse = convert.jsonDecode(response.body);
-      product.productId = jsonResponse["Product_Id"];
-      product.name = jsonResponse["Name"];
-      product.holders = jsonResponse["Holders"];
-      product.expirationDate = jsonResponse["Expiration_Date"];
-      product.manufacturingDate = jsonResponse["Manufacturing_Date"];
-      product.manifacturer = jsonResponse["Manufacturer"];
-      print('productId from request: ${product.productId}');
-      return product;
-    } else {
+    //if (response.statusCode == 201) {
+    var jsonResponse = convert.jsonDecode(response.body);
+    product.productId = jsonResponse["Product_Id"];
+    product.name = jsonResponse["Name"];
+    product.holders = jsonResponse["Holders"];
+    product.expirationDate = jsonResponse["Expiration_Date"];
+    product.manufacturingDate = jsonResponse["Manufacturing_Date"];
+    product.manifacturer = jsonResponse["Manufacturer"];
+    print('productId from request: ${product.productId}');
+    return product;
+    /*} else {
       print('No product returned');
       return null;
-    }
+    }*/
   }
 
 //  Future<List<Product>> getAllProducts() async{

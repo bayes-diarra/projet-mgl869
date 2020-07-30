@@ -15,6 +15,7 @@ class ServeDelivery extends StatefulWidget {
 
 class _ServeDeliveryState extends State<ServeDelivery> {
   DeliveryService service = DeliveryService();
+  bool button = true;
 
   TextEditingController idController = TextEditingController();
 
@@ -43,6 +44,7 @@ class _ServeDeliveryState extends State<ServeDelivery> {
                             Delivery d = await service.serveDelivery(
                                 user: widget.user, delid: idController.text);
                             if (d.served == true) {
+                              //setState(() {});
                               Scaffold.of(context).showSnackBar(
                                 SnackBar(
                                   content: Text('delivery served'),

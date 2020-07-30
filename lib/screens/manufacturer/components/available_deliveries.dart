@@ -16,7 +16,7 @@ class _AvailableDeliveriesState extends State<AvailableDeliveries> {
   DeliveryService service = DeliveryService();
   //List<Delivery> deliveries = await service.queryDeliveryRequest(widget.user);
   Future<List<Delivery>> getDeliveries() async {
-    return await service.queryDeliveryRequest(widget.user);
+    return await service.queryDeliveryRequestServed(widget.user);
   }
 
   @override
