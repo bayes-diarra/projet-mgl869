@@ -4,6 +4,9 @@ Product productFromJson(String str) => Product.fromJson(json.decode(str));
 
 String productToJson(Product data) => json.encode(data.toJson());
 
+/**
+ * Product Model
+ */
 class Product {
   Product({
     this.productId,
@@ -21,6 +24,9 @@ class Product {
   String manifacturer = " ";
   List<dynamic> holders;
 
+/**
+ * allow to convert a Product objet  from Json
+ */
   factory Product.fromJson(Map<String, dynamic> json) => Product(
         productId: json["Product_Id"],
         manufacturingDate: json["Manufacturing_Date"],
@@ -30,6 +36,9 @@ class Product {
         holders: List<dynamic>.from(json["Holders"].map((x) => x)),
       );
 
+/**
+ * allow to convert a Product objet  to Json
+ */
   Map<String, dynamic> toJson() => {
         "Product_Id": productId,
         "Manufacturing_Date": manufacturingDate,

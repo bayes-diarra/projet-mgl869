@@ -21,6 +21,12 @@ import 'screens/manufacturer/manufacturerHome.dart';
 import 'screens/patient/patientHome.dart';
 import 'screens/wholesaler/wholesalerHome.dart';
 
+/**
+ * The main classe 
+ * Here is where the application Start
+ * It contains the routes of all the screen
+ */
+
 void main() => runApp(MaterialApp(
       debugShowCheckedModeBanner: false,
       initialRoute: '/',

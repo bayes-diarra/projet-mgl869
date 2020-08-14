@@ -1,3 +1,6 @@
+/**
+ * The class role allow us to define different type of role  
+ */
 class Role {
   String name;
   String value;

@@ -6,6 +6,10 @@ import 'dart:convert' as convert;
 import 'package:flutter/foundation.dart';
 import 'dart:io';
 
+/**
+ * This class contains all services that are bounded to a user
+ */
+
 class UserService {
   //final String urlget = "https://next.json-generator.com/api/json/get/EkLrmfeyF";
 
@@ -39,7 +43,9 @@ class UserService {
     isLogin = false;
   }
 
-  //
+  /**
+   * Permit to sign in to the application
+   */
   Future<User> signInUser(
       {@required String username,
       @required String password,
@@ -56,7 +62,10 @@ class UserService {
     return user;
   }
 
-  // create a user
+  /**  
+   * permit to create a user 
+   * 
+  */
   Future<User> createUser(
       {@required String username,
       @required String password,
@@ -73,6 +82,9 @@ class UserService {
     }
   }
 
+  /**
+   * permit to get a user
+   */
   Future<User> getUser(
       {String username, String password, String organization}) async {
     User user;

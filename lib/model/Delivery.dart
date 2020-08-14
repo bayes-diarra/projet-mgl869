@@ -4,6 +4,9 @@ Delivery deliveryFromJson(String str) => Delivery.fromJson(json.decode(str));
 
 String deliveryToJson(Delivery data) => json.encode(data.toJson());
 
+/**
+ * Delivery Model 
+ */
 class Delivery {
   Delivery({
     this.deliveryId,
@@ -27,6 +30,9 @@ class Delivery {
   bool sended;
   String deliver;
 
+/**
+ * allow to convert a Delivery objet  from Json
+ */
   factory Delivery.fromJson(Map<String, dynamic> json) => Delivery(
         deliveryId: json["DeliveryID"],
         productId: json["ProductID"],
@@ -39,6 +45,9 @@ class Delivery {
         deliver: json["Deliver"],
       );
 
+  /**
+ * allow to convert a Delivery objet  to Json
+ */
   Map<String, dynamic> toJson() => {
         "DeliveryID": deliveryId,
         "ProductID": productId,

@@ -5,6 +5,9 @@ import 'dart:convert' as convert;
 import 'package:MedChain/model/User.dart';
 import 'package:MedChain/utility/links.dart';
 
+/**
+ * This class contains all services that are bounded to product
+ */
 class ProductService {
   // GET
   String urlget = "";

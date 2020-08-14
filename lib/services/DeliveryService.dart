@@ -7,6 +7,10 @@ import 'package:MedChain/model/Delivery.dart';
 import 'package:MedChain/model/User.dart';
 import 'package:MedChain/utility/links.dart';
 
+/**
+ *  This class contains all services that are bounded to delivery
+ */
+
 class DeliveryService {
   String urlget = ""; // link to get  a or deliveries
   String urlpost = ""; // : link to create a delivery
@@ -47,7 +51,9 @@ class DeliveryService {
     }*/
   }
 
-  //sendDelivery
+  /** 
+   * function to send a Delivery
+   * */
   Future<Delivery> sendDelivery({User user, String delid}) async {
     urlpost = link + "/SendDelivery/${user.username}/${user.organization}";
     Delivery delivery = Delivery();
@@ -74,7 +80,9 @@ class DeliveryService {
     }*/
   }
 
-  // ServeDeliver
+  /**
+   * Permit to serve a delivery
+   */
   Future<Delivery> serveDelivery({User user, String delid}) async {
     urlpost = link + "/ServeDelivery/${user.username}/${user.organization}";
     Delivery delivery = Delivery();
@@ -127,26 +135,10 @@ class DeliveryService {
     }*/
   }
 
-  /*Future<List<Delivery>> getDeliveries() async {
-    List<Delivery> deliveries = [];
-    urlget = "https://next.json-generator.com/api/json/get/VJFnefg1Y";
-    var response = await http.get(urlget);
-    if (response.statusCode == 200) {
-      var jsonResponse = convert.jsonDecode(response.body);
-      for (var d in jsonResponse) {
-        Delivery delivery = Delivery.fromJson(d);
-        deliveries.add(delivery);
-      }
-      int x = deliveries.length;
-      print('Number of users about http: $x');
-    } else {
-      print('Request failed with status: ${response.statusCode}.');
-    }
+  /**
+  *  Permit to get deliveries
+  */
 
-    return deliveries;
-  }*/
-
-// QueryDeliveryRequest  when request sent
   Future<List<Delivery>> queryDeliveryRequest(User user) async {
     List<Delivery> deliveries = [];
     urlget =
@@ -179,41 +171,9 @@ class DeliveryService {
     return deliveries;
   }
 
-  // QueryDeliveryRequest  when accepted
-  Future<List<Delivery>> queryDeliveryRequestWhenAccepeted(User user) async {
-    List<Delivery> deliveries = [];
-    urlget =
-        link + "/QueryDeliveryRequest/${user.username}/${user.organization}";
-    var response = await http.get(urlget);
-    Delivery delivery = Delivery();
-    var record;
-    if (response.statusCode == 200) {
-      var jsonResponse = convert.jsonDecode(response.body);
-      for (var d in jsonResponse) {
-        record = d["Record"];
-        delivery.deliveryId = d["Key"];
-        delivery.productId = record["Product_Id"];
-        delivery.weight = record["weight"];
-        delivery.dateOfDelivery = record["DateOfdelivery"];
-        delivery.served = record["Served"];
-        delivery.sended = record["Sended"];
-        delivery.accepted = record["Accepted"];
-        delivery.deliver = record["Deliver"];
-        if (delivery.accepted == false) {
-          deliveries.add(delivery);
-        }
-
-        delivery = Delivery();
-      }
-      int x = deliveries.length;
-      print('Number of users about http: $x');
-    } else {
-      print('Request failed with status: ${response.statusCode}.');
-    }
-    return deliveries;
-  }
-
-  // QueryDeliveryRequest when served
+  /**
+   * Permit to get Deliveries requested
+   */
   Future<List<Delivery>> queryDeliveryRequestServed(User user) async {
     List<Delivery> deliveries = [];
     urlget =
@@ -247,7 +207,9 @@ class DeliveryService {
     return deliveries;
   }
 
-  // QueryDeliveryRequest when sent
+  /**
+   * Permit to accept a delivery
+   */
   Future<List<Delivery>> queryDeliveryRequestAccept(User user) async {
     List<Delivery> deliveries = [];
     urlget =
@@ -267,9 +229,9 @@ class DeliveryService {
         delivery.sended = record["Sended"];
         delivery.accepted = record["Accepted"];
         delivery.deliver = record["Deliver"];
-        //if (delivery.sended == true) {
-        deliveries.add(delivery);
-        //}
+        if (delivery.sended == true) {
+          deliveries.add(delivery);
+        }
         delivery = Delivery();
       }
       int x = deliveries.length;
@@ -280,6 +242,9 @@ class DeliveryService {
     return deliveries;
   }
 
+  /**
+   * Permit to send a Delivery Request to a Deliver
+   */
   Future<List<Delivery>> queryDeliveryRequestDeliver(User user) async {
     List<Delivery> deliveries = [];
     urlget =
